@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameVerse | Sua loja de games</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="topo">
+        <a href="#" class="logo" id="btnInicio">
+            <span>✦</span> GAMEVERSE
+        </a>
+
+        <nav class="navegacao">
+            <a href="#catalogo">Jogos</a>
+            <a href="#destaques">Destaques</a>
+            <a href="#ofertas">Ofertas</a>
+        </nav>
+
+        <div class="acoes-conta">
+            <button type="button" id="btnEntrar">Entrar</button>
+            <button type="button" id="btnCriarConta"
+                class="botao-principal">Criar conta</button>
+        </div>
+    </header>
+
+    <main class="loja">
+
+        <section class="hero" id="inicio">
+            <div class="hero-conteudo">
+                <p class="sobretitulo">SEU UNIVERSO GAMER</p>
+                <h1>Sua próxima aventura começa aqui.</h1>
+                <p>
+                    Descubra novos mundos, encontre seus jogos favoritos
+                    e prepare-se para jogar.
+                </p>
+                <a href="#catalogo" class="botao-principal">
+                    Explorar jogos →
+                </a>
+            </div>
+            <div class="hero-simbolo" aria-hidden="true">✦</div>
+        </section>
+
+        <section id="catalogo" class="secao-loja">
+            <div class="cabecalho-catalogo">
+                <div>
+                    <p class="sobretitulo">ENCONTRE SUA PRÓXIMA AVENTURA</p>
+                    <h2>Explore os jogos</h2>
+                </div>
+
+                <span id="contadorJogos">0 jogos</span>
+            </div>
+
+            <div class="barra-busca">
+                <span>⌕</span>
+                <input type="search" id="busca"
+                    placeholder="Buscar jogos por nome...">
+            </div>
+
+            <div class="filtros-loja">
+                <label for="filtroPlataforma">Plataforma</label>
+                <select id="filtroPlataforma">
+                    <option value="">Todas as plataformas</option>
+                    <option value="PC">PC</option>
+                    <option value="PlayStation">PlayStation</option>
+                    <option value="Xbox">Xbox</option>
+                    <option value="Nintendo">Nintendo</option>
+                </select>
+
+                <label for="filtroGenero">Gênero</label>
+                <input type="text" id="filtroGenero"
+                    placeholder="Ex.: RPG, ação...">
+            </div>
+
+            <div id="listaJogos" class="grade-jogos">
+                <p class="mensagem-vazia">
+                    Estamos preparando nosso catálogo...
+                </p>
+            </div>
+        </section>
+
+        <section id="destaques" class="chamada">
+            <p class="sobretitulo">GAMEVERSE</p>
+            <h2>Encontre seu próximo mundo favorito.</h2>
+            <p>Explore diferentes gêneros e plataformas em um só lugar.</p>
+        </section>
+
+        <footer class="rodape">
+            <span>✦ GAMEVERSE</span>
+            <p>Projeto acadêmico de desenvolvimento web · 2026</p>
+        </footer>
+
+    </main>
+<script src="javascript/Jogo.js"></script>
+<script src="javascript/catalogo.js"></script>
+<script src="javascript/app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,898 @@
+
+:root {
+    --fundo: #0B1228;
+    --painel: #101936;
+    --painel-claro: #172342;
+    --roxo: #29145C;
+    --azul: #168CFF;
+    --agua: #42D9C8;
+    --branco: #F5F7FF;
+    --texto: #B8C6E8;
+    --borda: #354A77;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background:
+        radial-gradient(ellipse at top right, #29145C55, transparent 40%),
+        var(--fundo);
+    color: var(--branco);
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+button, input, select {
+    font: inherit;
+}
+
+button, a {
+    cursor: pointer;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* Cabeçalho da loja */
+
+.topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 18px 5%;
+    background: #0D1630;
+    border-bottom: 1px solid var(--borda);
+}
+
+.logo {
+    font-size: 1.35rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    white-space: nowrap;
+}
+
+.logo span {
+    color: var(--agua);
+    font-size: 1.7rem;
+}
+
+.navegacao, .acoes-conta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navegacao a {
+    color: var(--texto);
+    font-size: 0.95rem;
+}
+
+.navegacao a:hover {
+    color: var(--agua);
+}
+
+.acoes-conta button, .botao-principal {
+    display: inline-block;
+    border: 1px solid var(--azul);
+    border-radius: 7px;
+    padding: 10px 16px;
+    background: transparent;
+    color: var(--branco);
+    transition: 0.2s;
+}
+
+.acoes-conta button:hover, .botao-principal:hover {
+    box-shadow: 0 0 18px #168CFF55;
+    transform: translateY(-2px);
+}
+
+.acoes-conta .botao-principal, .hero .botao-principal {
+    background: var(--azul);
+    color: white;
+}
+
+/* Conteúdo */
+
+.loja {
+    width: min(1400px, 92%);
+    margin: 0 auto;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    padding: 45px;
+    margin: 32px 0 48px;
+    border: 1px solid #51418C;
+    border-radius: 14px;
+    background:
+        repeating-linear-gradient(30deg, transparent 0 45px, #FFFFFF05 46px 48px),
+        linear-gradient(115deg, #101936, #29145C 75%, #142A55);
+}
+
+.hero-conteudo {
+    position: relative;
+    z-index: 1;
+    max-width: 650px;
+}
+
+.sobretitulo {
+    color: var(--agua);
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    max-width: 650px;
+    margin: 12px 0;
+    font-size: clamp(2.2rem, 5vw, 3.8rem);
+    line-height: 1.12;
+}
+
+.hero p:not(.sobretitulo) {
+    color: var(--texto);
+    margin-bottom: 25px;
+}
+
+.hero-simbolo {
+    position: absolute;
+    right: 7%;
+    top: -50px;
+    color: #42D9C811;
+    font-size: 19rem;
+    line-height: 1;
+}
+
+/* Catálogo */
+
+.secao-loja {
+    margin-bottom: 55px;
+}
+
+.cabecalho-catalogo {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.cabecalho-catalogo h2, .chamada h2 {
+    font-size: 1.8rem;
+}
+
+#contadorJogos {
+    color: var(--texto);
+    font-size: 0.9rem;
+}
+
+.barra-busca {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 15px;
+    margin-bottom: 16px;
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    background: var(--painel);
+    color: var(--agua);
+}
+
+.barra-busca input {
+    width: 100%;
+    padding: 14px 0;
+    outline: none;
+    border: 0;
+    background: transparent;
+    color: var(--branco);
+}
+
+.filtros-loja {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+}
+
+.filtros-loja label {
+    color: var(--texto);
+    font-size: 0.9rem;
+}
+
+.filtros-loja select, .filtros-loja input {
+    max-width: 220px;
+    padding: 9px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 6px;
+    background: var(--painel);
+    color: var(--branco);
+}
+
+.grade-jogos {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.mensagem-vazia {
+    grid-column: 1 / -1;
+    padding: 35px;
+    text-align: center;
+    color: var(--texto);
+    background: var(--painel);
+    border: 1px dashed var(--borda);
+    border-radius: 10px;
+}
+
+/* Espaços para os cards que serão criados pelo JavaScript */
+
+.card-jogo {
+    overflow: hidden;
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    transition: 0.25s;
+}
+
+.card-jogo:hover {
+    transform: translateY(-4px);
+    border-color: var(--azul);
+    box-shadow: 0 8px 25px #168CFF22;
+}
+
+.card-jogo img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+}
+
+.info-jogo {
+    padding: 14px;
+}
+
+.info-jogo h3 {
+    font-size: 1rem;
+    margin-bottom: 5px;
+}
+
+.info-jogo p {
+    color: var(--texto);
+    font-size: 0.85rem;
+}
+
+.preco-jogo {
+    display: block;
+    margin: 12px 0;
+    color: var(--agua);
+    font-size: 1.15rem;
+    font-weight: bold;
+}
+
+.info-jogo button {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--azul);
+    border-radius: 6px;
+    background: var(--azul);
+    color: white;
+}
+
+/* Rodapé e chamada */
+
+.chamada {
+    margin-bottom: 35px;
+    padding: 30px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: linear-gradient(120deg, var(--painel), var(--roxo));
+}
+
+.chamada h2 {
+    margin: 8px 0;
+}
+
+.chamada p:last-child, .rodape p {
+    color: var(--texto);
+}
+
+.rodape {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap;
+    padding: 24px 0;
+    border-top: 1px solid var(--borda);
+    color: var(--agua);
+}
+
+/* Responsividade */
+
+@media (max-width: 1000px) {
+    .grade-jogos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .topo {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 700px) {
+    .topo {
+        padding: 16px 4%;
+    }
+
+    .navegacao {
+        order: 3;
+        width: 100%;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .acoes-conta {
+        gap: 8px;
+    }
+
+    .acoes-conta button {
+        padding: 8px 10px;
+    }
+
+    .loja {
+        width: 92%;
+    }
+
+    .hero {
+        min-height: 280px;
+        padding: 25px;
+    }
+
+    .grade-jogos {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+    }
+
+    .filtros-loja {
+        align-items: stretch;
+    }
+
+    .filtros-loja select, .filtros-loja input {
+        max-width: none;
+        flex: 1 1 100%;
+    }
+}
+
+@media (max-width: 420px) {
+    .grade-jogos {
+        grid-template-columns: 1fr;
+    }
+
+    .cabecalho-catalogo {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* ===== PAINEL ADMINISTRATIVO GAMEVERSE ===== */
+
+.painel-admin {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 32px 24px 60px;
+}
+
+.painel-admin h1,
+.painel-admin h2 {
+    color: #f8fafc;
+    margin-bottom: 16px;
+}
+
+.painel-admin p {
+    color: #cbd5e1;
+}
+
+.painel-admin form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    background: #111a35;
+    border: 1px solid #334674;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 24px 0 32px;
+}
+
+.painel-admin form label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    color: #dbeafe;
+    font-weight: 600;
+}
+
+.painel-admin input,
+.painel-admin select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    border: 1px solid #3b4f7a;
+    border-radius: 8px;
+    background: #0b1228;
+    color: #f8fafc;
+    font: inherit;
+}
+
+.painel-admin input:focus,
+.painel-admin select:focus {
+    outline: 2px solid #238bff;
+    border-color: #238bff;
+}
+
+.painel-admin button {
+    padding: 11px 18px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: #1687f8;
+    color: white;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.painel-admin button:hover {
+    background: #0872dc;
+    transform: translateY(-1px);
+}
+
+.painel-admin #btnLimpar {
+    background: #293653;
+    border-color: #43557c;
+}
+
+#listaAdministrativa {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+}
+
+#listaAdministrativa .card-jogo {
+    min-width: 0;
+    padding: 20px;
+    border: 1px solid #334674;
+    border-radius: 14px;
+    background: #111a35;
+}
+
+#listaAdministrativa .info-jogo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#listaAdministrativa .info-jogo h3 {
+    color: #f8fafc;
+    margin: 0;
+}
+
+#listaAdministrativa .info-jogo p {
+    margin: 0;
+}
+
+#listaAdministrativa .info-jogo button {
+    width: auto;
+    margin-top: 4px;
+}
+
+#listaAdministrativa .info-jogo button:last-child {
+    background: #a8325b;
+}
+
+#listaAdministrativa .info-jogo button:last-child:hover {
+    background: #c52e62;
+}
+
+@media (max-width: 900px) {
+    .painel-admin form,
+    #listaAdministrativa {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .painel-admin form,
+    #listaAdministrativa {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== FORMULÁRIO ADMINISTRATIVO GAMEVERSE ===== */
+
+#formJogo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 24px 0 40px;
+    padding: 28px;
+    background: linear-gradient(145deg, #151e3b, #10172e);
+    border: 1px solid #334674;
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
+#formJogo label {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    color: #dbeafe;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+#formJogo input,
+#formJogo select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #354a78;
+    border-radius: 9px;
+    background: #0b1228;
+    color: #f8fafc;
+    font: inherit;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+#formJogo input::placeholder {
+    color: #7f91b5;
+}
+
+#formJogo input:focus,
+#formJogo select:focus {
+    outline: none;
+    border-color: #238bff;
+    box-shadow: 0 0 0 3px rgba(35, 139, 255, 0.15);
+}
+
+#formJogo button {
+    justify-self: start;
+    min-width: 130px;
+    padding: 12px 20px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: #1687f8;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+#formJogo button:hover {
+    background: #0872dc;
+    transform: translateY(-1px);
+}
+
+#formJogo button[type="reset"] {
+    background: #293653;
+    border-color: #43557c;
+}
+
+#formJogo button[type="reset"]:hover {
+    background: #394a70;
+}
+
+@media (max-width: 650px) {
+    #formJogo {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+}
+
+/* =====================================
+   GAMEVERSE - FORMULÁRIO ADMINISTRATIVO
+   ===================================== */
+
+.form-jogo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 22px;
+    max-width: 1000px;
+    margin: 26px 0 38px;
+    padding: 28px;
+    background: linear-gradient(145deg, #151e3b, #10172e);
+    border: 1px solid #344875;
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+}
+
+.form-jogo label {
+    display: block;
+    align-self: end;
+    margin-top: 8px;
+    color: #d8e4ff;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.form-jogo input,
+.form-jogo select {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #354a78;
+    border-radius: 9px;
+    background: #0b1228;
+    color: #f8fafc;
+    font: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-jogo input:focus,
+.form-jogo select:focus {
+    border-color: #238bff;
+    box-shadow: 0 0 0 3px rgba(35, 139, 255, 0.15);
+}
+
+.form-jogo input::placeholder {
+    color: #7f91b5;
+}
+
+.form-jogo input[type="hidden"] {
+    display: none;
+}
+
+.acoes-formulario {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+.acoes-formulario button {
+    width: auto;
+    min-width: 140px;
+    padding: 12px 22px;
+    border: 1px solid transparent;
+    border-radius: 9px;
+    background: #1687f8;
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.acoes-formulario button:hover {
+    background: #0872dc;
+    transform: translateY(-1px);
+}
+
+.acoes-formulario #btnLimpar {
+    background: #293653;
+    border-color: #43557c;
+}
+
+.acoes-formulario #btnLimpar:hover {
+    background: #394a70;
+}
+
+/* Cartões do painel administrativo */
+
+#listaAdministrativa {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+}
+
+#listaAdministrativa .card-jogo {
+    min-width: 0;
+    padding: 22px;
+    border: 1px solid #344875;
+    border-radius: 14px;
+    background: #111a35;
+}
+
+#listaAdministrativa .info-jogo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#listaAdministrativa .info-jogo h3,
+#listaAdministrativa .info-jogo p {
+    margin: 0;
+}
+
+#listaAdministrativa .info-jogo h3 {
+    color: #f8fafc;
+}
+
+#listaAdministrativa .info-jogo button {
+    width: 100%;
+    margin-top: 4px;
+    padding: 11px 16px;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: #1687f8;
+    color: white;
+    font: inherit;
+    cursor: pointer;
+}
+
+#listaAdministrativa .info-jogo button:last-child {
+    background: #a8325b;
+}
+
+#listaAdministrativa .info-jogo button:last-child:hover {
+    background: #c52e62;
+}
+
+@media (max-width: 850px) {
+    #listaAdministrativa {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .form-jogo {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .acoes-formulario {
+        grid-column: 1;
+    }
+
+    #listaAdministrativa {
+        grid-template-columns: 1fr;
+    }
+}
+.form-jogo .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.form-jogo .campo-formulario label {
+    margin-top: 0;
+}
+
+/* Cabeçalho do painel administrativo */
+
+.painel-admin {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 30px 24px 60px;
+}
+
+.voltar-loja {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #b9caff;
+    text-decoration: none;
+}
+
+.voltar-loja:hover {
+    color: #38e5d0;
+}
+
+.cabecalho-admin {
+    margin-bottom: 30px;
+}
+
+.sobre-titulo {
+    color: #38e5d0;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.cabecalho-admin h1 {
+    margin: 8px 0;
+    color: #f8fafc;
+    font-size: clamp(28px, 4vw, 40px);
+}
+
+.cabecalho-admin > p:last-child,
+.titulo-formulario > p,
+.cabecalho-lista > div > p:last-child {
+    color: #b9c9e8;
+}
+
+.secao-formulario {
+    margin-bottom: 42px;
+}
+
+.titulo-formulario h2,
+.cabecalho-lista h2 {
+    margin-bottom: 8px;
+    color: #f8fafc;
+}
+
+.titulo-formulario > p {
+    margin-top: 0;
+}
+
+.form-jogo .campo-formulario {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    min-width: 0;
+}
+
+.form-jogo .campo-formulario label {
+    margin-top: 0;
+}
+
+.form-jogo .campo-formulario small {
+    color: #91a5ca;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.form-jogo .acoes-formulario {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 12px;
+}
+
+.form-jogo .botao-secundario {
+    background: #293653;
+    border-color: #43557c;
+}
+
+.form-jogo .botao-secundario:hover {
+    background: #394a70;
+}
+
+.secao-administrativa {
+    margin-top: 30px;
+}
+
+.cabecalho-lista {
+    margin-bottom: 20px;
+}
+
+#listaAdministrativa .info-jogo {
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .painel-admin {
+        padding: 24px 16px 40px;
+    }
+
+    .form-jogo {
+        grid-template-columns: 1fr;
+        padding: 18px;
+    }
+
+    .form-jogo .acoes-formulario {
+        grid-column: 1;
+    }
+}
