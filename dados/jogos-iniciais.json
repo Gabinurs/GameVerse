@@ -1,0 +1,272 @@
+[
+  {
+    "id": 1,
+    "nome": "Elden Ring",
+    "plataforma": "PlayStation",
+    "genero": "RPG",
+    "preco": 199.9,
+    "estoque": 8,
+    "imagem": "imagens/elden-ring.jpg"
+  },
+  {
+    "id": 2,
+    "nome": "Baldur's Gate 3",
+    "plataforma": "PC",
+    "genero": "RPG",
+    "preco": 229.9,
+    "estoque": 6,
+    "imagem": "imagens/baldurs-gate-3.jpg"
+  },
+  {
+    "id": 3,
+    "nome": "The Witcher 3",
+    "plataforma": "Xbox",
+    "genero": "RPG",
+    "preco": 99.9,
+    "estoque": 10,
+    "imagem": "imagens/the-witcher-3.jpg"
+  },
+  {
+    "id": 4,
+    "nome": "Cyberpunk 2077",
+    "plataforma": "PC",
+    "genero": "RPG",
+    "preco": 149.9,
+    "estoque": 7,
+    "imagem": "imagens/cyberpunk-2077.jpg"
+  },
+  {
+    "id": 5,
+    "nome": "Hogwarts Legacy",
+    "plataforma": "PlayStation",
+    "genero": "RPG",
+    "preco": 139.9,
+    "estoque": 9,
+    "imagem": "imagens/hogwarts-legacy.jpg"
+  },
+  {
+    "id": 6,
+    "nome": "Diablo IV",
+    "plataforma": "Xbox",
+    "genero": "RPG",
+    "preco": 179.9,
+    "estoque": 5,
+    "imagem": "imagens/diablo-iv.jpg"
+  },
+  {
+    "id": 7,
+    "nome": "The Elder Scrolls V: Skyrim",
+    "plataforma": "PC",
+    "genero": "RPG",
+    "preco": 79.9,
+    "estoque": 12,
+    "imagem": "imagens/skyrim.jpg"
+  },
+  {
+    "id": 8,
+    "nome": "Final Fantasy VII Remake",
+    "plataforma": "PlayStation",
+    "genero": "RPG",
+    "preco": 189.9,
+    "estoque": 4,
+    "imagem": "imagens/final-fantasy-vii-remake.jpg"
+  },
+  {
+    "id": 9,
+    "nome": "Starfield",
+    "plataforma": "Xbox",
+    "genero": "RPG",
+    "preco": 159.9,
+    "estoque": 6,
+    "imagem": "imagens/starfield.jpg"
+  },
+  {
+    "id": 10,
+    "nome": "Shadow Realm",
+    "plataforma": "Xbox",
+    "genero": "RPG",
+    "preco": 129.9,
+    "estoque": 10,
+    "imagem": "imagens/shadow-realm.jpg"
+  },
+  {
+    "id": 11,
+    "nome": "Call of Duty: Modern Warfare III",
+    "plataforma": "PlayStation",
+    "genero": "FPS",
+    "preco": 249.9,
+    "estoque": 8,
+    "imagem": "imagens/call-of-duty-mw3.jpg"
+  },
+  {
+    "id": 12,
+    "nome": "Counter-Strike 2",
+    "plataforma": "PC",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 20,
+    "imagem": "imagens/counter-strike-2.jpg"
+  },
+  {
+    "id": 13,
+    "nome": "Valorant",
+    "plataforma": "PC",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 20,
+    "imagem": "imagens/valorant.jpg"
+  },
+  {
+    "id": 14,
+    "nome": "Overwatch 2",
+    "plataforma": "PC",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 15,
+    "imagem": "imagens/overwatch-2.jpg"
+  },
+  {
+    "id": 15,
+    "nome": "Rainbow Six Siege",
+    "plataforma": "PlayStation",
+    "genero": "FPS",
+    "preco": 89.9,
+    "estoque": 7,
+    "imagem": "imagens/rainbow-six-siege.jpg"
+  },
+  {
+    "id": 16,
+    "nome": "Battlefield 2042",
+    "plataforma": "Xbox",
+    "genero": "FPS",
+    "preco": 99.9,
+    "estoque": 6,
+    "imagem": "imagens/battlefield-2042.jpg"
+  },
+  {
+    "id": 17,
+    "nome": "Apex Legends",
+    "plataforma": "PlayStation",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 12,
+    "imagem": "imagens/apex-legends.jpg"
+  },
+  {
+    "id": 18,
+    "nome": "Fortnite",
+    "plataforma": "Xbox",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 20,
+    "imagem": "imagens/fortnite.jpg"
+  },
+  {
+    "id": 19,
+    "nome": "Halo Infinite",
+    "plataforma": "Xbox",
+    "genero": "FPS",
+    "preco": 0,
+    "estoque": 10,
+    "imagem": "imagens/halo-infinite.jpg"
+  },
+  {
+    "id": 20,
+    "nome": "DOOM Eternal",
+    "plataforma": "PC",
+    "genero": "FPS",
+    "preco": 79.9,
+    "estoque": 5,
+    "imagem": "imagens/doom-eternal.jpg"
+  },
+  {
+    "id": 21,
+    "nome": "Minecraft",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 99.9,
+    "estoque": 15,
+    "imagem": "imagens/minecraft.jpg"
+  },
+  {
+    "id": 22,
+    "nome": "Rust",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 109.9,
+    "estoque": 8,
+    "imagem": "imagens/rust.jpg"
+  },
+  {
+    "id": 23,
+    "nome": "ARK: Survival Ascended",
+    "plataforma": "Xbox",
+    "genero": "Sobrevivência",
+    "preco": 179.9,
+    "estoque": 6,
+    "imagem": "imagens/ark-survival-ascended.jpg"
+  },
+  {
+    "id": 24,
+    "nome": "Subnautica",
+    "plataforma": "PlayStation",
+    "genero": "Sobrevivência",
+    "preco": 79.9,
+    "estoque": 9,
+    "imagem": "imagens/subnautica.jpg"
+  },
+  {
+    "id": 25,
+    "nome": "The Forest",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 49.9,
+    "estoque": 10,
+    "imagem": "imagens/the-forest.jpg"
+  },
+  {
+    "id": 26,
+    "nome": "Sons of the Forest",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 89.9,
+    "estoque": 5,
+    "imagem": "imagens/sons-of-the-forest.jpg"
+  },
+  {
+    "id": 27,
+    "nome": "Valheim",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 59.9,
+    "estoque": 12,
+    "imagem": "imagens/valheim.jpg"
+  },
+  {
+    "id": 28,
+    "nome": "Don't Starve Together",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 29.9,
+    "estoque": 14,
+    "imagem": "imagens/dont-starve-together.jpg"
+  },
+  {
+    "id": 29,
+    "nome": "Terraria",
+    "plataforma": "PC",
+    "genero": "Sobrevivência",
+    "preco": 32.9,
+    "estoque": 18,
+    "imagem": "imagens/terraria.jpg"
+  },
+  {
+    "id": 30,
+    "nome": "Palworld",
+    "plataforma": "Xbox",
+    "genero": "Sobrevivência",
+    "preco": 119.9,
+    "estoque": 7,
+    "imagem": "imagens/palworld.jpg"
+  }
+]

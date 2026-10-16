@@ -8,8 +8,26 @@ async function carregarJogos() {
         throw new Error("Erro ao consultar a API: " + resposta.status);
     }
 
-    jogosDemonstracao = await resposta.json();
-    return jogosDemonstracao;
+    const dados = await resposta.json();
+
+jogosDemonstracao = dados.map(dadosJogo =>
+    new Jogo(
+        dadosJogo.id,
+        dadosJogo.nome,
+        dadosJogo.plataforma,
+        dadosJogo.genero,
+        dadosJogo.preco,
+        dadosJogo.estoque,
+        dadosJogo.imagem
+    )
+);
+
+console.log(
+    "É uma instância de Jogo?",
+    jogosDemonstracao[0] instanceof Jogo
+);
+
+return jogosDemonstracao;
 }
 
 function formatarPreco(valor) {

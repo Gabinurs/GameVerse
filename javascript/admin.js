@@ -159,33 +159,36 @@ async function excluirJogo(id) {
     }
 }
 // Reseta a aplicação e apaga todos os jogos.
-document.getElementById("btnResetar").addEventListener("click", async () => {
-    const confirmar = confirm(
-        "ATENÇÃO!\n\nDeseja realmente apagar TODOS os jogos cadastrados?\nEssa ação não pode ser desfeita."
-    );
+const btnResetar = document.getElementById("btnResetar");
 
-    if (!confirmar) {
-        return;
-    }
+if (btnResetar) {
+    btnResetar.addEventListener("click", async () => {
+        const confirmar = confirm(
+            "ATENÇÃO!\n\nDeseja realmente apagar TODOS os jogos cadastrados?\nEssa ação não pode ser desfeita."
+        );
 
-    try {
-        const resposta = await fetch("/api/jogos/resetar", {
-            method: "DELETE"
-        });
+        if (!confirmar) return;
 
-        const resultado = await resposta.json();
+        try {
+            const resposta = await fetch("/api/jogos/resetar", {
+                method: "DELETE"
+            });
 
-        if (!resposta.ok) {
-            throw new Error(resultado.erro || "Erro ao resetar a aplicação.");
+            const resultado = await resposta.json();
+
+            if (!resposta.ok) {
+                throw new Error(
+                    resultado.erro || "Erro ao resetar a aplicação."
+                );
+            }
+
+            await carregarJogosAdmin();
+            limparFormulario();
+
+            alert("Aplicação resetada com sucesso!");
+        } catch (erro) {
+            console.error("Erro ao resetar:", erro);
+            alert(erro.message || "Não foi possível resetar a aplicação.");
         }
-
-        await carregarJogosAdmin();
-
-        limparFormulario();
-
-        alert("Aplicação resetada! Todos os jogos foram removidos.");
-    } catch (erro) {
-        console.error("Erro ao resetar:", erro);
-        alert("Não foi possível resetar a aplicação. Verifique o servidor.");
-    }
-});
+    });
+}

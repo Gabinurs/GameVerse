@@ -1,0 +1,283 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatórios | GameVerse</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .pagina-relatorios {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .cabecalho-relatorios {
+            margin-bottom: 30px;
+        }
+
+        .cabecalho-relatorios h1 {
+            color: #8b9dff;
+            margin-bottom: 10px;
+        }
+
+        .resumo-relatorios {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .card-resumo {
+            background: #172342;
+            border: 1px solid #34456f;
+            border-radius: 14px;
+            padding: 22px;
+        }
+
+        .card-resumo h3 {
+            font-size: 15px;
+            color: #b8c4e8;
+        }
+
+        .card-resumo p {
+            font-size: 26px;
+            font-weight: bold;
+            color: #69e3e8;
+            margin-top: 12px;
+        }
+
+        .secao-relatorio {
+            background: #111b33;
+            border: 1px solid #34456f;
+            border-radius: 14px;
+            padding: 22px;
+            margin: 25px 0;
+            overflow-x: auto;
+        }
+
+        .secao-relatorio h2 {
+            color: #8b9dff;
+            margin-bottom: 18px;
+        }
+
+        .secao-relatorio table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .secao-relatorio th,
+        .secao-relatorio td {
+            text-align: left;
+            padding: 12px;
+            border-bottom: 1px solid #34456f;
+        }
+
+        .secao-relatorio th {
+            color: #69e3e8;
+        }
+
+        .botao-voltar {
+            display: inline-block;
+            padding: 12px 18px;
+            background: #5865f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .botao-imprimir {
+            padding: 12px 18px;
+            background: #263654;
+            color: white;
+            border: 1px solid #52658c;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 0;
+        }
+
+        @media print {
+            .botao-voltar,
+            .botao-imprimir {
+                display: none;
+            }
+
+            body {
+                background: white;
+                color: black;
+            }
+
+            .secao-relatorio,
+            .card-resumo {
+                background: white;
+                color: black;
+                border: 1px solid #ccc;
+                break-inside: avoid;
+            }
+
+            .secao-relatorio h2,
+            .card-resumo h3,
+            .card-resumo p,
+            .secao-relatorio th {
+                color: black;
+            }
+        }
+        
+/* Ajustes visuais dos relatórios GameVerse */
+.pagina-relatorios {
+    width: min(1200px, 94%);
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0 60px;
+    box-sizing: border-box;
+    color: #eef2ff;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+.cabecalho-relatorios {
+    margin-bottom: 32px;
+}
+
+.cabecalho-relatorios h1 {
+    font-size: clamp(28px, 3vw, 36px);
+    line-height: 1.25;
+    margin: 0 0 12px;
+}
+
+.cabecalho-relatorios p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 0 18px;
+}
+
+.resumo-relatorios {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin: 28px 0;
+}
+
+.card-resumo {
+    min-width: 0;
+    padding: 24px;
+    box-sizing: border-box;
+    border-radius: 14px;
+}
+
+.card-resumo h3 {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.card-resumo p {
+    font-size: 28px;
+    line-height: 1.3;
+    overflow-wrap: anywhere;
+    margin: 12px 0 0;
+}
+
+.secao-relatorio {
+    margin: 24px 0;
+    padding: 26px;
+    border-radius: 14px;
+    box-sizing: border-box;
+}
+
+.secao-relatorio h2 {
+    font-size: 22px;
+    line-height: 1.4;
+    margin: 0 0 20px;
+}
+
+.tabela-responsiva {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.secao-relatorio table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.secao-relatorio th,
+.secao-relatorio td {
+    padding: 14px 16px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.secao-relatorio th {
+    font-weight: 700;
+}
+
+.secao-relatorio tbody tr:hover {
+    background: rgba(105, 227, 232, 0.06);
+}
+
+.botao-voltar,
+.botao-imprimir {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 18px;
+    margin: 6px 8px 6px 0;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+    .pagina-relatorios {
+        width: 92%;
+        padding-top: 24px;
+    }
+
+    .resumo-relatorios {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .secao-relatorio {
+        padding: 18px;
+    }
+
+    .secao-relatorio h2 {
+        font-size: 19px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <main class="pagina-relatorios">
+        <header class="cabecalho-relatorios">
+            <h1>📊 Relatórios GameVerse</h1>
+            <p>Consulte os dados e o desempenho do catálogo de jogos.</p>
+
+            <a href="../index.html" class="botao-voltar">
+                Voltar ao catálogo
+            </a>
+
+            <button type="button" class="botao-imprimir"
+                    onclick="window.print()">
+                Imprimir relatórios
+            </button>
+        </header>
+
+        <div id="conteudoRelatorios" aria-live="polite">
+            Carregando relatórios...
+        </div>
+    </main>
+
+    <script src="../javascript/relatorios.js"></script>
+</body>
+</html>

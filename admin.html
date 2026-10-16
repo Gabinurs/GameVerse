@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,35 +13,47 @@
     <main class="loja painel-admin">
         <section class="secao-loja">
 
-            <a href="index.html" class="voltar-loja">
-                ← Voltar à loja
+            
+<header class="cabecalho-admin">
+    <div class="admin-topo">
+        <a href="index.html" class="voltar-loja">
+            ← Voltar à loja
+        </a>
+
+        <div class="admin-botoes">
+            <a href="html/relatorios.html" class="botao-admin-link">
+                📊 Relatórios
             </a>
 
-            <header class="cabecalho-admin">
-                <p class="sobre-titulo">GAMEVERSE · PAINEL ADMINISTRATIVO</p>
-
-                <h1>Gerenciar jogos</h1>
-
-                <p>
-                    Cadastre, edite e gerencie os produtos do catálogo GameVerse.
-                </p>
-            </header>
-            <section class="secao-formulario">
-    <div class="titulo-formulario">
-        <h2>Zona administrativa</h2>
-        <p>Apague todos os jogos cadastrados no catálogo.</p>
+            <button
+                type="button"
+                class="botao-secundario"
+                id="btnResetar"
+            >
+                Resetar aplicação
+            </button>
+        </div>
     </div>
 
-    <div class="acoes-formulario">
-        <button
-            type="button"
-            class="botao-secundario"
-            id="btnResetar"
-        >
-            Resetar aplicação
-        </button>
-    </div>
-</section>
+    <p class="sobre-titulo">GAMEVERSE · PAINEL ADMINISTRATIVO</p>
+
+    <h1>Gerenciar jogos</h1>
+
+    <p>
+        Cadastre, edite e gerencie os produtos do catálogo GameVerse.
+    </p>
+</header>
+                <div class="acoes-formulario">
+                    <button
+                        type="button"
+                        class="botao-secundario"
+                        id="btnResetar"
+                    >
+                        Resetar aplicação
+                    </button>
+                </div>
+            </section>
+
             <section class="secao-formulario">
                 <div class="titulo-formulario">
                     <h2 id="tituloFormulario">Cadastrar novo jogo</h2>
@@ -114,7 +125,9 @@
                             id="imagem"
                             placeholder="https://..."
                         >
-                        <small>Informe o endereço de uma imagem disponível na internet.</small>
+                        <small>
+                            Informe o endereço de uma imagem disponível na internet.
+                        </small>
                     </div>
 
                     <div class="acoes-formulario">

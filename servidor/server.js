@@ -167,7 +167,7 @@ app.delete("/api/jogos/resetar", async (req, res) => {
             mensagem: "A lista de jogos foi zerada com sucesso."
         });
     } catch (erro) {
-        console.error(erro);
+        console.error("Erro ao resetar os jogos:", erro);
 
         res.status(500).json({
             erro: "Não foi possível resetar os jogos."

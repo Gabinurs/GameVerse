@@ -896,3 +896,63 @@ a {
         grid-column: 1;
     }
 }
+
+/* Cabeçalho administrativo organizado */
+.cabecalho-admin {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.admin-topo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+
+.admin-botoes {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.botao-admin-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 12px 18px;
+    border-radius: 8px;
+    background: #263654;
+    border: 1px solid #52658c;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    box-sizing: border-box;
+}
+
+.botao-admin-link:hover {
+    background: #34476c;
+}
+
+.admin-botoes button {
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .admin-topo {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .admin-botoes {
+        width: 100%;
+    }
+
+    .admin-botoes > * {
+        flex: 1;
+    }
+}
