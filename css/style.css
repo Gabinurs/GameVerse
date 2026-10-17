@@ -956,3 +956,137 @@ a {
         flex: 1;
     }
 }
+
+/* Perfil do usuario - correcao de alinhamento */
+
+.acoes-conta .menu-conta {
+    position: relative;
+    display: inline-block;
+}
+
+.acoes-conta .botao-menu-conta {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 10px;
+    width: auto;
+    min-width: 220px;
+    min-height: 58px;
+    padding: 8px 12px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+.acoes-conta .avatar-conta {
+    display: flex;
+    flex: 0 0 42px;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    border-radius: 50%;
+    background: #1689f8;
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.acoes-conta .nome-conta {
+    display: inline-block;
+    flex: 0 1 auto;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.acoes-conta .botao-menu-conta > span:last-child {
+    display: inline-block;
+    flex: 0 0 auto;
+}
+
+/* Menu da conta: dropdown separado abaixo do perfil */
+
+.acoes-conta .menu-conta {
+    position: relative;
+    display: inline-block;
+}
+
+.acoes-conta .botao-menu-conta {
+    display: inline-flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
+}
+
+.acoes-conta .opcoes-conta {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 0 !important;
+    left: auto !important;
+    z-index: 9999;
+    display: block;
+    width: 220px;
+    min-width: 220px;
+    padding: 8px;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid #263e70;
+    border-radius: 12px;
+    background: #101a35;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.4);
+}
+
+.acoes-conta .opcoes-conta[hidden] {
+    display: none !important;
+}
+
+.acoes-conta .opcoes-conta .titulo-menu-conta {
+    margin: 8px 10px;
+    color: #8fc5ff;
+    font-size: 13px;
+}
+
+.acoes-conta .opcoes-conta a,
+.acoes-conta .opcoes-conta button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 7px;
+    background: transparent;
+    color: #ffffff;
+    text-align: left;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.acoes-conta .opcoes-conta a:hover,
+.acoes-conta .opcoes-conta button:hover {
+    background: #1b2c50;
+}
+
+/* Botão de favoritos */
+
+.detalhes-info .botao-favorito {
+    margin-top: 10px;
+    background: transparent;
+    border: 1px solid #1689f8;
+    color: #8fc5ff;
+}
+
+.detalhes-info .botao-favorito:hover:not(:disabled) {
+    background: #172b50;
+}
+
+.detalhes-info .botao-favorito:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}

@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar conta | GameVerse</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .cadastro-container {
+            max-width: 440px;
+            margin: 40px auto;
+            padding: 30px;
+            border-radius: 15px;
+            background: #1e1e2f;
+            color: white;
+            box-sizing: border-box;
+        }
+
+        .cadastro-container h1 {
+            text-align: center;
+            color: #ff4fa3;
+        }
+
+        .cadastro-container p {
+            text-align: center;
+            color: #ccc;
+        }
+
+        .cadastro-container label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 6px;
+        }
+
+        .cadastro-container input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 7px;
+            border: 1px solid #555;
+            box-sizing: border-box;
+        }
+
+        .cadastro-container button {
+            width: 100%;
+            margin-top: 22px;
+            padding: 13px;
+            border: none;
+            border-radius: 7px;
+            background: #ff4fa3;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .cadastro-container button:hover {
+            background: #e7358b;
+        }
+
+        #mensagem {
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        .links-cadastro {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links-cadastro a {
+            color: #ff75b8;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="cadastro-container">
+        <h1>Crie sua conta</h1>
+        <p>Entre para o universo GameVerse!</p>
+
+        <form id="formCadastro">
+            <label for="nome">Nome completo</label>
+            <input
+                type="text"
+                id="nome"
+                name="nome"
+                maxlength="100"
+                autocomplete="name"
+                required
+                placeholder="Digite seu nome"
+            >
+
+            <label for="usuario">Nome de usuário</label>
+            <input
+                type="text"
+                id="usuario"
+                name="usuario"
+                minlength="3"
+                maxlength="30"
+                autocomplete="username"
+                required
+                placeholder="Escolha um usuário"
+            >
+
+            <label for="senha">Senha</label>
+            <input
+                type="password"
+                id="senha"
+                name="senha"
+                minlength="6"
+                maxlength="72"
+                autocomplete="new-password"
+                required
+                placeholder="Crie uma senha"
+            >
+
+            <label for="confirmarSenha">Confirmar senha</label>
+            <input
+                type="password"
+                id="confirmarSenha"
+                name="confirmarSenha"
+                minlength="6"
+                maxlength="72"
+                autocomplete="new-password"
+                required
+                placeholder="Digite a senha novamente"
+            >
+
+            <button type="submit">Criar minha conta</button>
+        </form>
+
+        <div id="mensagem" role="status"></div>
+
+        <div class="links-cadastro">
+            <p>Já possui uma conta?</p>
+            <a href="login.html">Entrar</a>
+            <br><br>
+            <a href="index.html">Voltar para a loja</a>
+        </div>
+    </main>
+
+    <script>
+        const formCadastro = document.getElementById("formCadastro");
+        const mensagem = document.getElementById("mensagem");
+
+        formCadastro.addEventListener("submit", async function(evento) {
+            evento.preventDefault();
+
+            const nome = document.getElementById("nome").value.trim();
+            const usuario = document.getElementById("usuario").value.trim();
+            const senha = document.getElementById("senha").value;
+            const confirmarSenha = document.getElementById("confirmarSenha").value;
+
+            if (senha !== confirmarSenha) {
+                mensagem.textContent = "As senhas não coincidem.";
+                return;
+            }
+
+            mensagem.textContent = "Criando sua conta...";
+
+            try {
+                const resposta = await fetch("/api/auth/cadastro", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    credentials: "same-origin",
+                    body: JSON.stringify({
+                        nome,
+                        usuario,
+                        senha,
+                        confirmarSenha
+                    })
+                });
+
+                const dados = await resposta.json();
+
+                if (!resposta.ok) {
+                    mensagem.textContent = dados.erro || "Não foi possível criar a conta.";
+                    return;
+                }
+
+                mensagem.textContent = dados.mensagem;
+                formCadastro.reset();
+
+                setTimeout(function() {
+                    window.location.href = "login.html";
+                }, 1500);
+
+            } catch (erro) {
+                mensagem.textContent = "Erro de conexão com o servidor.";
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+[
+  {
+    "id": "1792272081579",
+    "nome": "Gabriela Ramos",
+    "usuario": "Gabinurs",
+    "senhaHash": "$2b$10$sQx28VotPh.92GyC3gGRouC2pI6y7dQmmZJyFCZNqP2LijFXzhslC",
+    "tipo": "usuario"
+  },
+  {
+    "id": "1792275428531",
+    "nome": "Ricardo",
+    "usuario": "ricardov",
+    "senhaHash": "$2b$10$TcGdiVUtbbbo1ut4cFyyAurf2OHxj4EhPb41sIW3Qc7kW85U6LuLO",
+    "tipo": "usuario",
+    "favoritos": [
+      1
+    ]
+  }
+]

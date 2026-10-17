@@ -1,6 +1,10 @@
 
 let jogosDemonstracao = [];
 
+// ========================================
+// CARREGAR JOGOS DA API
+// ========================================
+
 async function carregarJogos() {
     const resposta = await fetch("/api/jogos");
 
@@ -10,25 +14,30 @@ async function carregarJogos() {
 
     const dados = await resposta.json();
 
-jogosDemonstracao = dados.map(dadosJogo =>
-    new Jogo(
-        dadosJogo.id,
-        dadosJogo.nome,
-        dadosJogo.plataforma,
-        dadosJogo.genero,
-        dadosJogo.preco,
-        dadosJogo.estoque,
-        dadosJogo.imagem
-    )
-);
+    jogosDemonstracao = dados.map(dadosJogo =>
+        new Jogo(
+            dadosJogo.id,
+            dadosJogo.nome,
+            dadosJogo.plataforma,
+            dadosJogo.genero,
+            dadosJogo.preco,
+            dadosJogo.estoque,
+            dadosJogo.imagem
+        )
+    );
 
-console.log(
-    "É uma instância de Jogo?",
-    jogosDemonstracao[0] instanceof Jogo
-);
+    console.log(
+        "É uma instância de Jogo?",
+        jogosDemonstracao.length > 0 &&
+        jogosDemonstracao[0] instanceof Jogo
+    );
 
-return jogosDemonstracao;
+    return jogosDemonstracao;
 }
+
+// ========================================
+// FORMATAR PREÇO
+// ========================================
 
 function formatarPreco(valor) {
     return Number(valor).toLocaleString("pt-BR", {
@@ -36,6 +45,10 @@ function formatarPreco(valor) {
         currency: "BRL"
     });
 }
+
+// ========================================
+// EXIBIR JOGOS NO CATÁLOGO
+// ========================================
 
 function exibirJogos(lista = jogosDemonstracao) {
     const container = document.getElementById("listaJogos");
@@ -46,26 +59,63 @@ function exibirJogos(lista = jogosDemonstracao) {
 
     container.innerHTML = "";
 
+    if (lista.length === 0) {
+        container.innerHTML = `
+            <p class="mensagem-vazia">
+                Nenhum jogo encontrado.
+            </p>
+        `;
+    }
+
     lista.forEach(jogo => {
         const imagem = jogo.imagem ||
             "https://placehold.co/600x400/172342/FFFFFF?text=GameVerse";
 
-        container.innerHTML += `
-            <article class="card-jogo">
-                <img src="${imagem}" alt="${jogo.nome}"
-                     onerror="this.onerror=null;this.src='https://placehold.co/600x400/172342/FFFFFF?text=GameVerse'">
+        const artigo = document.createElement("article");
+        artigo.className = "card-jogo";
 
-                <div class="info-jogo">
-                    <p>${jogo.plataforma} · ${jogo.genero}</p>
-                    <h3>${jogo.nome}</h3>
-                    <p class="preco-jogo">${formatarPreco(jogo.preco)}</p>
-                    <p>${jogo.estoque} unidades em estoque</p>
-                    <button onclick="verDetalhes(${jogo.id})">
-                        Ver detalhes
-                    </button>
-                </div>
-            </article>
-        `;
+        const img = document.createElement("img");
+        img.src = imagem;
+        img.alt = jogo.nome;
+        img.onerror = function () {
+            this.onerror = null;
+            this.src = "https://placehold.co/600x400/172342/FFFFFF?text=GameVerse";
+        };
+
+        const informacoes = document.createElement("div");
+        informacoes.className = "info-jogo";
+
+        const plataformaGenero = document.createElement("p");
+        plataformaGenero.textContent = `${jogo.plataforma} · ${jogo.genero}`;
+
+        const titulo = document.createElement("h3");
+        titulo.textContent = jogo.nome;
+
+        const preco = document.createElement("p");
+        preco.className = "preco-jogo";
+        preco.textContent = formatarPreco(jogo.preco);
+
+        const estoque = document.createElement("p");
+        estoque.textContent = `${jogo.estoque} unidades em estoque`;
+
+        const botao = document.createElement("button");
+        botao.type = "button";
+        botao.textContent = "Ver detalhes";
+
+        botao.addEventListener("click", function () {
+            verDetalhes(jogo.id);
+        });
+
+        informacoes.append(
+            plataformaGenero,
+            titulo,
+            preco,
+            estoque,
+            botao
+        );
+
+        artigo.append(img, informacoes);
+        container.appendChild(artigo);
     });
 
     const contador = document.getElementById("contadorJogos");
@@ -75,19 +125,105 @@ function exibirJogos(lista = jogosDemonstracao) {
     }
 }
 
+// ========================================
+// ABRIR PÁGINA DE DETALHES
+// ========================================
+
 function verDetalhes(id) {
-    const jogo = jogosDemonstracao.find(item => item.id === Number(id));
+    const jogo = jogosDemonstracao.find(
+        item => Number(item.id) === Number(id)
+    );
 
     if (!jogo) {
         alert("Jogo não encontrado.");
         return;
     }
 
-    alert(
-        `Jogo: ${jogo.nome}\n` +
-        `Plataforma: ${jogo.plataforma}\n` +
-        `Gênero: ${jogo.genero}\n` +
-        `Preço: ${formatarPreco(jogo.preco)}\n` +
-        `Estoque: ${jogo.estoque} unidades`
-    );
+    window.location.href = `detalhes.html?id=${encodeURIComponent(jogo.id)}`;
 }
+
+// ========================================
+// BUSCA E FILTROS
+// ========================================
+
+function aplicarFiltros() {
+    const campoBusca = document.getElementById("busca");
+    const campoPlataforma = document.getElementById("filtroPlataforma");
+    const campoGenero = document.getElementById("filtroGenero");
+
+    const termoBusca = campoBusca
+        ? campoBusca.value.trim().toLowerCase()
+        : "";
+
+    const plataformaSelecionada = campoPlataforma
+        ? campoPlataforma.value
+        : "";
+
+    const generoSelecionado = campoGenero
+        ? campoGenero.value.trim().toLowerCase()
+        : "";
+
+    const jogosFiltrados = jogosDemonstracao.filter(jogo => {
+        const correspondeNome = jogo.nome
+            .toLowerCase()
+            .includes(termoBusca);
+
+        const correspondePlataforma =
+            !plataformaSelecionada ||
+            jogo.plataforma.toLowerCase() ===
+            plataformaSelecionada.toLowerCase();
+
+        const correspondeGenero =
+            !generoSelecionado ||
+            jogo.genero.toLowerCase().includes(generoSelecionado);
+
+        return (
+            correspondeNome &&
+            correspondePlataforma &&
+            correspondeGenero
+        );
+    });
+
+    exibirJogos(jogosFiltrados);
+}
+
+// ========================================
+// INICIALIZAR CATÁLOGO
+// ========================================
+
+document.addEventListener("DOMContentLoaded", async function () {
+    try {
+        await carregarJogos();
+        exibirJogos();
+
+        const campoBusca = document.getElementById("busca");
+        const campoPlataforma = document.getElementById("filtroPlataforma");
+        const campoGenero = document.getElementById("filtroGenero");
+
+        if (campoBusca) {
+            campoBusca.addEventListener("input", aplicarFiltros);
+        }
+
+        if (campoPlataforma) {
+            campoPlataforma.addEventListener("change", aplicarFiltros);
+        }
+
+        if (campoGenero) {
+            campoGenero.addEventListener("input", aplicarFiltros);
+        }
+
+    } catch (erro) {
+        console.error("Erro ao carregar catálogo:", erro);
+
+        const container = document.getElementById("listaJogos");
+
+        if (container) {
+            container.innerHTML = `
+                <p class="mensagem-vazia">
+                    Não foi possível carregar os jogos.
+                    Tente atualizar a página.
+                </p>
+            `;
+        }
+    }
+});

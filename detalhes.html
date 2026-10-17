@@ -1,0 +1,100 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do jogo | GameVerse</title>
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        .pagina-detalhes {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 24px;
+            color: #fff;
+        }
+
+        .detalhes-card {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+            gap: 30px;
+            padding: 24px;
+            border: 1px solid #263e70;
+            border-radius: 16px;
+            background: #101a35;
+        }
+
+        .detalhes-card img {
+            width: 100%;
+            max-height: 520px;
+            object-fit: contain;
+            border-radius: 10px;
+            background: #0b1228;
+        }
+
+        .detalhes-info h1 {
+            margin-top: 8px;
+            font-size: 32px;
+        }
+
+        .detalhes-preco {
+            color: #60a5fa;
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        .detalhes-info button {
+            width: 100%;
+            padding: 14px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 8px;
+            background: #1689f8;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .detalhes-info button:hover {
+            background: #0874dc;
+        }
+
+        .link-voltar {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #8fc5ff;
+            text-decoration: none;
+        }
+
+        #mensagem {
+            margin-top: 15px;
+        }
+
+        @media (max-width: 700px) {
+            .detalhes-card {
+                grid-template-columns: 1fr;
+            }
+
+            .detalhes-info h1 {
+                font-size: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="pagina-detalhes">
+        <a href="index.html#catalogo" class="link-voltar">
+            ← Voltar para a loja
+        </a>
+
+        <section id="detalhesJogo">
+            <p>Carregando informações do jogo...</p>
+        </section>
+    </main>
+
+    <script src="javascript/Jogo.js"></script>
+    <script src="javascript/detalhes.js"></script>
+</body>
+</html>
