@@ -1,5 +1,7 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,92 +12,133 @@
 </head>
 
 <body>
+
     <main class="loja painel-admin">
         <section class="secao-loja">
 
-            
-<header class="cabecalho-admin">
-    <div class="admin-topo">
-        <a href="index.html" class="voltar-loja">
-            ← Voltar à loja
-        </a>
+            <!-- CABEÇALHO ADMINISTRATIVO -->
+            <header class="cabecalho-admin">
 
-        <div class="admin-botoes">
-            <a href="html/relatorios.html" class="botao-admin-link">
-                📊 Relatórios
-            </a>
+                <div class="admin-topo">
 
-            <button
-                type="button"
-                class="botao-secundario"
-                id="btnResetar"
-            >
-                Resetar aplicação
-            </button>
-        </div>
-    </div>
+                    <a href="index.html" class="voltar-loja">
+                        ← Voltar à loja
+                    </a>
 
-    <p class="sobre-titulo">GAMEVERSE · PAINEL ADMINISTRATIVO</p>
+                    <div class="admin-botoes">
 
-    <h1>Gerenciar jogos</h1>
+                        <a
+                            href="html/relatorios.html"
+                            class="botao-admin-link"
+                        >
+                            📊 Relatórios
+                        </a>
 
-    <p>
-        Cadastre, edite e gerencie os produtos do catálogo GameVerse.
-    </p>
-</header>
-                <div class="acoes-formulario">
-                    <button
-                        type="button"
-                        class="botao-secundario"
-                        id="btnResetar"
-                    >
-                        Resetar aplicação
-                    </button>
+                        <button
+                            type="button"
+                            class="botao-secundario"
+                            id="btnResetar"
+                        >
+                            Resetar aplicação
+                        </button>
+
+                    </div>
+
                 </div>
-            </section>
 
+                <p class="sobre-titulo">
+                    GAMEVERSE · PAINEL ADMINISTRATIVO
+                </p>
+
+                <h1>Gerenciar jogos</h1>
+
+                <p>
+                    Cadastre, edite e gerencie os produtos
+                    do catálogo GameVerse.
+                </p>
+
+            </header>
+
+
+            <!-- FORMULÁRIO DE CADASTRO E EDIÇÃO -->
             <section class="secao-formulario">
+
                 <div class="titulo-formulario">
-                    <h2 id="tituloFormulario">Cadastrar novo jogo</h2>
-                    <p>Preencha os dados do produto abaixo.</p>
+
+                    <h2 id="tituloFormulario">
+                        Cadastrar novo jogo
+                    </h2>
+
+                    <p>
+                        Preencha os dados do produto abaixo.
+                    </p>
+
                 </div>
 
                 <form id="formJogo" class="form-jogo">
+
                     <input type="hidden" id="jogoId">
 
                     <div class="campo-formulario">
-                        <label for="nome">Nome do jogo</label>
+
+                        <label for="nome">
+                            Nome do jogo
+                        </label>
+
                         <input
                             type="text"
                             id="nome"
                             placeholder="Ex.: Elden Ring"
                             required
                         >
+
                     </div>
 
+
                     <div class="campo-formulario">
-                        <label for="plataforma">Plataforma</label>
+
+                        <label for="plataforma">
+                            Plataforma
+                        </label>
+
                         <select id="plataforma" required>
-                            <option value="">Selecione uma plataforma</option>
+
+                            <option value="">
+                                Selecione uma plataforma
+                            </option>
+
                             <option value="PC">PC</option>
                             <option value="PlayStation">PlayStation</option>
                             <option value="Xbox">Xbox</option>
                             <option value="Nintendo">Nintendo</option>
+
                         </select>
+
                     </div>
 
+
                     <div class="campo-formulario">
-                        <label for="genero">Gênero</label>
+
+                        <label for="genero">
+                            Gênero
+                        </label>
+
                         <input
                             type="text"
                             id="genero"
                             placeholder="Ex.: RPG, FPS, Sobrevivência"
                             required
                         >
+
                     </div>
 
+
                     <div class="campo-formulario">
-                        <label for="preco">Preço (R$)</label>
+
+                        <label for="preco">
+                            Preço (R$)
+                        </label>
+
                         <input
                             type="number"
                             id="preco"
@@ -104,10 +147,16 @@
                             placeholder="0,00"
                             required
                         >
+
                     </div>
 
+
                     <div class="campo-formulario">
-                        <label for="estoque">Quantidade em estoque</label>
+
+                        <label for="estoque">
+                            Quantidade em estoque
+                        </label>
+
                         <input
                             type="number"
                             id="estoque"
@@ -116,21 +165,33 @@
                             placeholder="Ex.: 10"
                             required
                         >
+
                     </div>
 
+
                     <div class="campo-formulario">
-                        <label for="imagem">URL da capa (opcional)</label>
+
+                        <label for="imagem">
+                            URL da capa (opcional)
+                        </label>
+
                         <input
                             type="url"
                             id="imagem"
                             placeholder="https://..."
                         >
+
                         <small>
-                            Informe o endereço de uma imagem disponível na internet.
+                            Informe o endereço de uma imagem
+                            disponível na internet.
                         </small>
+
                     </div>
 
+
+                    <!-- BOTÕES DO FORMULÁRIO -->
                     <div class="acoes-formulario">
+
                         <button
                             type="submit"
                             class="botao-principal"
@@ -146,29 +207,55 @@
                         >
                             Limpar campos
                         </button>
+
                     </div>
+
                 </form>
+
             </section>
 
+
+            <!-- LISTA DE JOGOS CADASTRADOS -->
             <section class="secao-administrativa">
+
                 <div class="cabecalho-lista">
+
                     <div>
-                        <p class="sobre-titulo">CATÁLOGO</p>
+
+                        <p class="sobre-titulo">
+                            CATÁLOGO
+                        </p>
+
                         <h2>Jogos cadastrados</h2>
-                        <p>Gerencie os produtos disponíveis na loja.</p>
+
+                        <p>
+                            Gerencie os produtos disponíveis na loja.
+                        </p>
+
                     </div>
+
                 </div>
 
+
                 <div id="listaAdministrativa">
-                    <p class="mensagem-vazia">Carregando jogos...</p>
+
+                    <p class="mensagem-vazia">
+                        Carregando jogos...
+                    </p>
+
                 </div>
+
             </section>
 
         </section>
     </main>
 
+
+    <!-- ARQUIVOS JAVASCRIPT -->
     <script src="javascript/Jogo.js"></script>
     <script src="javascript/catalogo.js"></script>
     <script src="javascript/admin.js"></script>
+
 </body>
+
 </html>
