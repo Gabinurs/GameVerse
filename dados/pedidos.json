@@ -1,0 +1,47 @@
+[
+  {
+    "id": "9799ae58-9b4c-466e-9be4-66283ca67d9b",
+    "usuarioId": "1792275428531",
+    "nomeUsuario": "Ricardo",
+    "usuario": "ricardov",
+    "criadoEm": "2026-10-17T22:53:32.227Z",
+    "formaPagamento": "debito",
+    "itens": [
+      {
+        "id": 2,
+        "nome": "Baldur's Gate 3",
+        "preco": 229.9,
+        "quantidade": 1,
+        "subtotal": 229.9
+      },
+      {
+        "id": 3,
+        "nome": "The Witcher 3",
+        "preco": 99.9,
+        "quantidade": 1,
+        "subtotal": 99.9
+      }
+    ],
+    "total": 329.8,
+    "visualizado": false
+  },
+  {
+    "id": "b108c213-7802-4d45-abd5-676fbc5f1a0e",
+    "usuarioId": "1792275428531",
+    "nomeUsuario": "Ricardo",
+    "usuario": "ricardov",
+    "criadoEm": "2026-10-18T01:19:04.968Z",
+    "formaPagamento": "credito",
+    "itens": [
+      {
+        "id": 3,
+        "nome": "The Witcher 3",
+        "preco": 99.9,
+        "quantidade": 1,
+        "subtotal": 99.9
+      }
+    ],
+    "total": 99.9,
+    "visualizado": false
+  }
+]

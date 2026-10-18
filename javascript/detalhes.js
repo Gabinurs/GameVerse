@@ -209,6 +209,10 @@ function exibirDetalhes() {
                     }
                 </button>
 
+                <a href="meus-jogos.html" class="link-voltar">
+                    Ver meu carrinho
+                </a>
+
                 <p id="mensagem" role="status">
                     ${
                         usuarioAtual
@@ -311,57 +315,45 @@ async function alternarFavorito() {
 
 async function adicionarAoCarrinho() {
     const mensagem = document.getElementById("mensagem");
-
-    const usuario = await verificarLogin();
-
-    if (!usuario || usuario.tipo === "admin") {
-        mensagem.textContent = "Entre com uma conta de cliente para comprar.";
-
-        sessionStorage.setItem(
-            "gameverseVoltarAposLogin",
-            window.location.pathname + window.location.search
-        );
-
-        setTimeout(() => {
-            window.location.href = "login.html";
-        }, 700);
-
-        return;
-    }
-
-    let carrinho = [];
-
     try {
-        carrinho = JSON.parse(
-            localStorage.getItem("gameverseCarrinho") || "[]"
-        );
-
-        if (!Array.isArray(carrinho)) {
-            carrinho = [];
-        }
-    } catch (erro) {
-        carrinho = [];
-    }
-
-    const itemExistente = carrinho.find(
-        item => Number(item.id) === Number(jogoAtual.id)
-    );
-
-    if (itemExistente) {
-        itemExistente.quantidade += 1;
-    } else {
-        carrinho.push({
-            id: Number(jogoAtual.id),
-            quantidade: 1
+        const resposta = await fetch("/api/carrinho", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: jogoAtual.id })
         });
+        const tipoConteudo = resposta.headers.get("content-type") || "";
+
+        if (!tipoConteudo.includes("application/json")) {
+            throw new Error(
+                "O servidor da loja não encontrou a API do carrinho. " +
+                "Reinicie com npm start e abra a loja pelo endereço do servidor " +
+                "(normalmente http://localhost:3000)."
+            );
+        }
+
+        const dados = await resposta.json();
+
+        if (!resposta.ok) {
+            if (resposta.status === 401) {
+                sessionStorage.setItem(
+                    "gameverseVoltarAposLogin",
+                    window.location.pathname + window.location.search
+                );
+                window.location.href = "login.html";
+                return;
+            }
+
+            throw new Error(dados.erro || "Não foi possível adicionar ao carrinho.");
+        }
+
+        mensagem.textContent = dados.mensagem;
+    } catch (erro) {
+        console.error("Erro ao adicionar ao carrinho:", erro);
+        mensagem.textContent = erro.message;
     }
-
-    localStorage.setItem(
-        "gameverseCarrinho",
-        JSON.stringify(carrinho)
-    );
-
-    mensagem.textContent = "Jogo adicionado ao carrinho!";
 }
 
 // ========================================

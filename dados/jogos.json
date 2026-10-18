@@ -14,7 +14,7 @@
     "plataforma": "PC",
     "genero": "RPG",
     "preco": 229.9,
-    "estoque": 6,
+    "estoque": 5,
     "imagem": "imagens/baldurs-gate-3.jpg"
   },
   {
@@ -23,7 +23,7 @@
     "plataforma": "Xbox",
     "genero": "RPG",
     "preco": 99.9,
-    "estoque": 10,
+    "estoque": 8,
     "imagem": "imagens/the-witcher-3.jpg"
   },
   {

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minha conta | GameVerse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="pagina-conta">
+        <header class="cabecalho-pagina-conta">
+            <a href="index.html">← Voltar para a loja</a>
+            <p class="sobre-titulo">GAMEVERSE · MINHA CONTA</p>
+            <h1>Dados da conta</h1>
+            <p>Confira seu usuário e atualize sua senha com segurança.</p>
+        </header>
+
+        <section class="painel-conta">
+            <h2>Seu perfil</h2>
+            <p><strong>Nome:</strong> <span id="nomeConta">Carregando...</span></p>
+            <p><strong>Usuário:</strong> <span id="usuarioConta">Carregando...</span></p>
+        </section>
+
+        <section class="painel-conta">
+            <h2>Trocar senha</h2>
+            <form id="formSenha" class="form-conta">
+                <label for="senhaAtual">Senha atual</label>
+                <input id="senhaAtual" name="senhaAtual" type="password"
+                    autocomplete="current-password" required>
+
+                <label for="novaSenha">Nova senha</label>
+                <input id="novaSenha" name="novaSenha" type="password"
+                    minlength="6" maxlength="72" autocomplete="new-password" required>
+
+                <label for="confirmarSenha">Confirmar nova senha</label>
+                <input id="confirmarSenha" name="confirmarSenha" type="password"
+                    minlength="6" maxlength="72" autocomplete="new-password" required>
+
+                <button type="submit" class="botao-principal">Salvar nova senha</button>
+            </form>
+            <p id="mensagemConta" class="mensagem-pagina" role="status"></p>
+        </section>
+    </main>
+    <script src="javascript/minha-conta.js"></script>
+</body>
+</html>

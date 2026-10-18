@@ -14,6 +14,25 @@
     "tipo": "usuario",
     "favoritos": [
       1
-    ]
+    ],
+    "carrinho": []
+  },
+  {
+    "id": "1792286281610",
+    "nome": "Ricardo dos Santos Vieira",
+    "usuario": "RSV",
+    "senhaHash": "$2b$10$vVl6G4MqCWXXjGSYpudge.ZHOsXt0Bc2ewKF7asevk2WyrpKB9ORa",
+    "tipo": "usuario",
+    "favoritos": [],
+    "carrinho": []
+  },
+  {
+    "id": "admin-local",
+    "nome": "Administrador",
+    "usuario": "admin",
+    "senhaHash": "$2b$10$YuVwwIXhG0llQGuUowwzIeJ3PGKgeaLG2mJG/U/Ff6KOM3RYN4exW",
+    "tipo": "admin",
+    "favoritos": [],
+    "carrinho": []
   }
 ]

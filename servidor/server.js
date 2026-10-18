@@ -1,16 +1,18 @@
 
 const express = require("express");
+const crypto = require("crypto");
 const fs = require("fs/promises");
 const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
 
 const app = express();
-const PORTA = 3000;
+const PORTA = Number(process.env.PORT) || 3000;
 
 const pastaProjeto = path.join(__dirname, "..");
 const arquivoJogos = path.join(pastaProjeto, "dados", "jogos.json");
 const arquivoUsuarios = path.join(pastaProjeto, "dados", "usuarios.json");
+const arquivoPedidos = path.join(pastaProjeto, "dados", "pedidos.json");
 
 app.use(express.json());
 
@@ -83,6 +85,97 @@ function exigirAdmin(req, res, next) {
     }
 
     next();
+}
+
+function exigirCliente(req, res, next) {
+    if (!req.session.usuario) {
+        return res.status(401).json({
+            erro: "Faça login para continuar."
+        });
+    }
+
+    if (req.session.usuario.tipo === "admin") {
+        return res.status(403).json({
+            erro: "Esta função está disponível somente para contas de cliente."
+        });
+    }
+
+    next();
+}
+
+async function lerPedidos() {
+    try {
+        const conteudo = await fs.readFile(arquivoPedidos, "utf8");
+        const pedidos = JSON.parse(conteudo);
+
+        if (!Array.isArray(pedidos)) {
+            throw new Error("O arquivo pedidos.json deve conter uma lista.");
+        }
+
+        return pedidos;
+    } catch (erro) {
+        if (erro.code === "ENOENT") {
+            await gravarPedidos([]);
+            return [];
+        }
+
+        throw erro;
+    }
+}
+
+async function gravarPedidos(pedidos) {
+    await fs.writeFile(
+        arquivoPedidos,
+        JSON.stringify(pedidos, null, 2),
+        "utf8"
+    );
+}
+
+async function prepararAdministrador() {
+    const nomeUsuario = process.env.ADMIN_USERNAME?.trim();
+    const senha = process.env.ADMIN_PASSWORD;
+
+    if (!nomeUsuario && !senha) {
+        return;
+    }
+
+    if (
+        !nomeUsuario ||
+        typeof senha !== "string" ||
+        !/^[a-zA-Z0-9_.-]{3,30}$/.test(nomeUsuario) ||
+        senha.length < 12 ||
+        senha.length > 72
+    ) {
+        throw new Error(
+            "Configure ADMIN_USERNAME válido e ADMIN_PASSWORD com 12 a 72 caracteres."
+        );
+    }
+
+    const usuarios = await lerUsuarios();
+    const contaExistente = usuarios.find(
+        item => item.usuario.toLowerCase() === nomeUsuario.toLowerCase()
+    );
+
+    if (contaExistente) {
+        if (contaExistente.tipo !== "admin") {
+            throw new Error(
+                "ADMIN_USERNAME já está cadastrado como conta de cliente."
+            );
+        }
+
+        return;
+    }
+
+    usuarios.push({
+        id: `admin-${Date.now()}`,
+        nome: "Administrador",
+        usuario: nomeUsuario,
+        senhaHash: await bcrypt.hash(senha, 10),
+        tipo: "admin",
+        favoritos: [],
+        carrinho: []
+    });
+    await gravarUsuarios(usuarios);
 }
 
 // Impede acesso direto ao painel sem login de administrador.
@@ -179,7 +272,8 @@ app.post("/api/auth/cadastro", async (req, res) => {
             usuario: usuario.trim(),
             senhaHash: await bcrypt.hash(senha, 10),
             tipo: "usuario",
-            favoritos: []
+            favoritos: [],
+            carrinho: []
         };
 
         usuarios.push(novoUsuario);
@@ -264,6 +358,95 @@ app.get("/api/auth/me", (req, res) => {
     res.json({
         usuario: req.session.usuario
     });
+});
+
+app.get("/api/conta", exigirCliente, async (req, res) => {
+    try {
+        const usuarios = await lerUsuarios();
+        const usuario = usuarios.find(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (!usuario) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        res.json({
+            nome: usuario.nome,
+            usuario: usuario.usuario
+        });
+    } catch (erro) {
+        console.error("Erro ao consultar conta:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível consultar os dados da conta."
+        });
+    }
+});
+
+app.patch("/api/conta/senha", exigirCliente, async (req, res) => {
+    try {
+        const { senhaAtual, novaSenha, confirmarSenha } = req.body;
+
+        if (
+            typeof senhaAtual !== "string" ||
+            typeof novaSenha !== "string" ||
+            typeof confirmarSenha !== "string" ||
+            !senhaAtual ||
+            !novaSenha ||
+            !confirmarSenha
+        ) {
+            return res.status(400).json({
+                erro: "Preencha todos os campos de senha."
+            });
+        }
+
+        if (novaSenha.length < 6 || novaSenha.length > 72) {
+            return res.status(400).json({
+                erro: "A nova senha deve ter entre 6 e 72 caracteres."
+            });
+        }
+
+        if (novaSenha !== confirmarSenha) {
+            return res.status(400).json({
+                erro: "A confirmação da nova senha não confere."
+            });
+        }
+
+        const usuarios = await lerUsuarios();
+        const indice = usuarios.findIndex(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (indice === -1) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        const usuario = usuarios[indice];
+
+        if (!(await bcrypt.compare(senhaAtual, usuario.senhaHash))) {
+            return res.status(401).json({
+                erro: "A senha atual está incorreta."
+            });
+        }
+
+        usuarios[indice].senhaHash = await bcrypt.hash(novaSenha, 10);
+        await gravarUsuarios(usuarios);
+
+        res.json({
+            mensagem: "Senha alterada com sucesso."
+        });
+    } catch (erro) {
+        console.error("Erro ao alterar senha:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível alterar a senha."
+        });
+    }
 });
 
 // ========================================
@@ -505,6 +688,455 @@ app.delete("/api/jogos/:id", exigirAdmin, async (req, res) => {
     }
 });
 
+// ========================================
+// CARRINHO E FINALIZACAO DE PEDIDO
+// ========================================
+
+app.get("/api/carrinho", exigirCliente, async (req, res) => {
+    try {
+        const usuarios = await lerUsuarios();
+        const usuario = usuarios.find(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (!usuario) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        const jogos = await lerJogos();
+        const carrinho = Array.isArray(usuario.carrinho)
+            ? usuario.carrinho
+            : [];
+
+        res.json(carrinho.flatMap(item => {
+            const jogo = jogos.find(
+                registro => Number(registro.id) === Number(item.id)
+            );
+
+            if (!jogo) {
+                return [];
+            }
+
+            return [{
+                id: jogo.id,
+                nome: jogo.nome,
+                plataforma: jogo.plataforma,
+                preco: jogo.preco,
+                estoque: jogo.estoque,
+                imagem: jogo.imagem,
+                quantidade: item.quantidade
+            }];
+        }));
+    } catch (erro) {
+        console.error("Erro ao consultar carrinho:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível carregar o carrinho."
+        });
+    }
+});
+
+app.post("/api/carrinho", exigirCliente, async (req, res) => {
+    try {
+        const idJogo = Number(req.body.id);
+
+        if (!Number.isInteger(idJogo) || idJogo <= 0) {
+            return res.status(400).json({
+                erro: "ID do jogo inválido."
+            });
+        }
+
+        const [jogos, usuarios] = await Promise.all([
+            lerJogos(),
+            lerUsuarios()
+        ]);
+        const jogo = jogos.find(
+            item => Number(item.id) === idJogo
+        );
+        const indiceUsuario = usuarios.findIndex(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (!jogo) {
+            return res.status(404).json({
+                erro: "Jogo não encontrado."
+            });
+        }
+
+        if (indiceUsuario === -1) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        const usuario = usuarios[indiceUsuario];
+        usuario.carrinho = Array.isArray(usuario.carrinho)
+            ? usuario.carrinho
+            : [];
+
+        const item = usuario.carrinho.find(
+            registro => Number(registro.id) === idJogo
+        );
+        const quantidadeAtual = item ? Number(item.quantidade) : 0;
+
+        if (quantidadeAtual >= jogo.estoque) {
+            return res.status(409).json({
+                erro: "Não há mais unidades disponíveis para adicionar."
+            });
+        }
+
+        if (item) {
+            item.quantidade += 1;
+        } else {
+            usuario.carrinho.push({
+                id: idJogo,
+                quantidade: 1
+            });
+        }
+
+        await gravarUsuarios(usuarios);
+
+        res.status(201).json({
+            mensagem: "Jogo adicionado ao carrinho."
+        });
+    } catch (erro) {
+        console.error("Erro ao adicionar ao carrinho:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível adicionar o jogo ao carrinho."
+        });
+    }
+});
+
+app.patch("/api/carrinho/:id", exigirCliente, async (req, res) => {
+    try {
+        const idJogo = Number(req.params.id);
+        const { quantidade } = req.body;
+
+        if (
+            !Number.isInteger(idJogo) ||
+            idJogo <= 0 ||
+            !Number.isInteger(quantidade) ||
+            quantidade < 0
+        ) {
+            return res.status(400).json({
+                erro: "Jogo ou quantidade inválida."
+            });
+        }
+
+        const [jogos, usuarios] = await Promise.all([
+            lerJogos(),
+            lerUsuarios()
+        ]);
+        const jogo = jogos.find(
+            item => Number(item.id) === idJogo
+        );
+        const indiceUsuario = usuarios.findIndex(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (!jogo || indiceUsuario === -1) {
+            return res.status(404).json({
+                erro: jogo ? "Usuário não encontrado." : "Jogo não encontrado."
+            });
+        }
+
+        if (quantidade > jogo.estoque) {
+            return res.status(409).json({
+                erro: `Há somente ${jogo.estoque} unidade(s) em estoque.`
+            });
+        }
+
+        const usuario = usuarios[indiceUsuario];
+        usuario.carrinho = Array.isArray(usuario.carrinho)
+            ? usuario.carrinho
+            : [];
+
+        if (quantidade === 0) {
+            usuario.carrinho = usuario.carrinho.filter(
+                item => Number(item.id) !== idJogo
+            );
+        } else {
+            const item = usuario.carrinho.find(
+                registro => Number(registro.id) === idJogo
+            );
+
+            if (item) {
+                item.quantidade = quantidade;
+            } else {
+                usuario.carrinho.push({ id: idJogo, quantidade });
+            }
+        }
+
+        await gravarUsuarios(usuarios);
+        res.json({ mensagem: "Carrinho atualizado." });
+    } catch (erro) {
+        console.error("Erro ao atualizar carrinho:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível atualizar o carrinho."
+        });
+    }
+});
+
+app.delete("/api/carrinho", exigirCliente, async (req, res) => {
+    try {
+        const usuarios = await lerUsuarios();
+        const indice = usuarios.findIndex(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (indice === -1) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        usuarios[indice].carrinho = [];
+        await gravarUsuarios(usuarios);
+
+        res.json({ mensagem: "Carrinho esvaziado." });
+    } catch (erro) {
+        console.error("Erro ao esvaziar carrinho:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível esvaziar o carrinho."
+        });
+    }
+});
+
+let filaCheckout = Promise.resolve();
+
+app.post("/api/compras", exigirCliente, async (req, res) => {
+    let liberarFila;
+    const anterior = filaCheckout;
+    filaCheckout = new Promise(resolve => {
+        liberarFila = resolve;
+    });
+    await anterior;
+
+    try {
+        const { formaPagamento } = req.body;
+        const formasValidas = ["debito", "credito", "pix"];
+
+        if (!formasValidas.includes(formaPagamento)) {
+            return res.status(400).json({
+                erro: "Selecione uma forma de pagamento válida."
+            });
+        }
+
+        const [jogosOriginais, usuariosOriginais, pedidosOriginais] =
+            await Promise.all([lerJogos(), lerUsuarios(), lerPedidos()]);
+        const indiceUsuario = usuariosOriginais.findIndex(
+            item => item.id === req.session.usuario.id
+        );
+
+        if (indiceUsuario === -1) {
+            return res.status(404).json({
+                erro: "Usuário não encontrado."
+            });
+        }
+
+        const usuario = usuariosOriginais[indiceUsuario];
+        const carrinho = Array.isArray(usuario.carrinho)
+            ? usuario.carrinho
+            : [];
+
+        if (carrinho.length === 0) {
+            return res.status(400).json({
+                erro: "Seu carrinho está vazio."
+            });
+        }
+
+        const jogosAtualizados = jogosOriginais.map(jogo => ({ ...jogo }));
+        const itensPedido = [];
+
+        for (const item of carrinho) {
+            const jogo = jogosAtualizados.find(
+                registro => Number(registro.id) === Number(item.id)
+            );
+
+            if (
+                !jogo ||
+                !Number.isInteger(item.quantidade) ||
+                item.quantidade <= 0
+            ) {
+                return res.status(400).json({
+                    erro: "O carrinho contém um item inválido. Atualize a página."
+                });
+            }
+
+            if (item.quantidade > jogo.estoque) {
+                return res.status(409).json({
+                    erro: `Estoque insuficiente para ${jogo.nome}. Há ${jogo.estoque} unidade(s).`
+                });
+            }
+
+            itensPedido.push({
+                id: jogo.id,
+                nome: jogo.nome,
+                preco: jogo.preco,
+                quantidade: item.quantidade,
+                subtotal: Number((jogo.preco * item.quantidade).toFixed(2))
+            });
+            jogo.estoque -= item.quantidade;
+        }
+
+        const pedido = {
+            id: crypto.randomUUID(),
+            usuarioId: usuario.id,
+            nomeUsuario: usuario.nome,
+            usuario: usuario.usuario,
+            criadoEm: new Date().toISOString(),
+            formaPagamento,
+            itens: itensPedido,
+            total: Number(
+                itensPedido.reduce((total, item) => total + item.subtotal, 0)
+                    .toFixed(2)
+            ),
+            visualizado: false
+        };
+
+        usuario.carrinho = [];
+        const pedidosAtualizados = [...pedidosOriginais, pedido];
+        const arquivosAlterados = [];
+
+        try {
+            arquivosAlterados.push("jogos");
+            await gravarJogos(jogosAtualizados);
+            arquivosAlterados.push("pedidos");
+            await gravarPedidos(pedidosAtualizados);
+            arquivosAlterados.push("usuarios");
+            await gravarUsuarios(usuariosOriginais);
+        } catch (erroGravacao) {
+            for (const arquivo of arquivosAlterados.reverse()) {
+                try {
+                    if (arquivo === "jogos") {
+                        await gravarJogos(jogosOriginais);
+                    } else if (arquivo === "pedidos") {
+                        await gravarPedidos(pedidosOriginais);
+                    } else {
+                        await gravarUsuarios(usuariosOriginais);
+                    }
+                } catch (erroRollback) {
+                    console.error(
+                        `Erro ao reverter arquivo ${arquivo} após compra incompleta:`,
+                        erroRollback
+                    );
+                }
+            }
+
+            throw erroGravacao;
+        }
+
+        res.status(201).json({
+            mensagem: "Pedido registrado com sucesso.",
+            pedido
+        });
+    } catch (erro) {
+        console.error("Erro ao finalizar compra:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível finalizar a compra."
+        });
+    } finally {
+        liberarFila();
+    }
+});
+
+app.get("/api/admin/pedidos", exigirAdmin, async (req, res) => {
+    try {
+        const pedidos = await lerPedidos();
+        const jogos = await lerJogos();
+        const agora = new Date();
+        const pedidosDoMes = pedidos.filter(pedido => {
+            const data = new Date(pedido.criadoEm);
+            return data.getMonth() === agora.getMonth() &&
+                data.getFullYear() === agora.getFullYear();
+        });
+
+        res.json({
+            pedidos: pedidos
+                .slice()
+                .sort((a, b) => new Date(b.criadoEm) - new Date(a.criadoEm)),
+            estoquePorJogo: jogos.map(jogo => ({
+                id: jogo.id,
+                unidadesVendidas: pedidos.reduce(
+                    (total, pedido) => total + pedido.itens.reduce(
+                        (soma, item) =>
+                            soma + (
+                                Number(item.id) === Number(jogo.id)
+                                    ? Number(item.quantidade || 0)
+                                    : 0
+                            ),
+                        0
+                    ),
+                    0
+                )
+            })),
+            resumo: {
+                unidadesEstoque: jogos.reduce(
+                    (total, jogo) => total + Number(jogo.estoque || 0),
+                    0
+                ),
+                vendasMes: pedidosDoMes.length,
+                unidadesVendidasMes: pedidosDoMes.reduce(
+                    (total, pedido) => total + pedido.itens.reduce(
+                        (soma, item) => soma + Number(item.quantidade || 0),
+                        0
+                    ),
+                    0
+                ),
+                faturamentoMes: Number(pedidosDoMes.reduce(
+                    (total, pedido) => total + Number(pedido.total || 0),
+                    0
+                ).toFixed(2)),
+                pedidosNaoVisualizados: pedidos.filter(
+                    pedido => !pedido.visualizado
+                ).length
+            }
+        });
+    } catch (erro) {
+        console.error("Erro ao consultar vendas administrativas:", erro);
+
+        res.status(500).json({
+            erro: "Não foi possível carregar os pedidos."
+        });
+    }
+});
+
+app.patch(
+    "/api/admin/pedidos/:id/visualizado",
+    exigirAdmin,
+    async (req, res) => {
+        try {
+            const pedidos = await lerPedidos();
+            const pedido = pedidos.find(
+                item => item.id === req.params.id
+            );
+
+            if (!pedido) {
+                return res.status(404).json({
+                    erro: "Pedido não encontrado."
+                });
+            }
+
+            pedido.visualizado = true;
+            await gravarPedidos(pedidos);
+
+            res.json({ mensagem: "Pedido marcado como visualizado." });
+        } catch (erro) {
+            console.error("Erro ao atualizar notificação de compra:", erro);
+
+            res.status(500).json({
+                erro: "Não foi possível atualizar a notificação."
+            });
+        }
+    }
+);
+
  // ========================================
 // FAVORITOS DA CONTA CONECTADA
 // ========================================
@@ -661,10 +1293,23 @@ app.delete("/api/favoritos/:id", exigirLogin, async (req, res) => {
     }
 });
 
+app.use("/api", (req, res) => {
+    res.status(404).json({
+        erro: `Rota da API não encontrada: ${req.method} ${req.originalUrl}. Reinicie o servidor com npm start.`
+    });
+});
+
 // ========================================
 // INICIAR SERVIDOR
 // ========================================
 
-app.listen(PORTA, () => {
-    console.log(`GameVerse disponível em http://localhost:${PORTA}`);
-});
+prepararAdministrador()
+    .then(() => {
+        app.listen(PORTA, () => {
+            console.log(`GameVerse disponível em http://localhost:${PORTA}`);
+        });
+    })
+    .catch(erro => {
+        console.error("Não foi possível preparar o administrador:", erro);
+        process.exitCode = 1;
+    });

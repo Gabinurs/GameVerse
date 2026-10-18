@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus jogos | GameVerse</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <main class="pagina-carrinho">
+        <header class="cabecalho-pagina-conta">
+            <a href="index.html">← Voltar para a loja</a>
+            <p class="sobre-titulo">GAMEVERSE · MEUS JOGOS</p>
+            <h1>Seu carrinho</h1>
+            <p>Revise os jogos, confira o total e escolha como pagar.</p>
+        </header>
+
+        <div id="mensagemCarrinho" class="mensagem-pagina estado-carrinho"
+            role="status" aria-live="polite">Carregando seu carrinho...</div>
+        <div class="layout-carrinho">
+            <section id="listaCarrinho" class="lista-carrinho"
+                aria-label="Jogos no carrinho"></section>
+            <aside class="resumo-carrinho">
+                <h2>Resumo do pedido</h2>
+                <p>Subtotal <strong id="subtotalCarrinho">R$ 0,00</strong></p>
+                <p>Total <strong id="totalCarrinho">R$ 0,00</strong></p>
+                <form id="formCompra">
+                    <label for="formaPagamento">Forma de pagamento</label>
+                    <select id="formaPagamento" name="formaPagamento" required>
+                        <option value="">Selecione uma opção</option>
+                        <option value="debito">Cartão de débito</option>
+                        <option value="credito">Cartão de crédito</option>
+                        <option value="pix">Pix</option>
+                    </select>
+                    <p class="aviso-pagamento">
+                        Pagamento demonstrativo: esta loja não processa cobranças reais.
+                    </p>
+                    <button type="submit" id="btnFinalizarCompra"
+                        class="botao-principal" disabled>Finalizar pedido</button>
+                </form>
+                <button type="button" id="btnEsvaziarCarrinho"
+                    class="botao-secundario" hidden>Esvaziar carrinho</button>
+            </aside>
+        </div>
+    </main>
+    <script src="javascript/meus-jogos.js"></script>
+</body>
+</html>

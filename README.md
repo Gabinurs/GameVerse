@@ -11,6 +11,9 @@ O GameVerse é um projeto acadêmico de desenvolvimento web que simula uma loja 
 - Armazenamento de dados em arquivo JSON.
 - Área de relatórios.
 - Funcionalidade de reset da aplicação.
+- Conta do cliente com consulta de usuário e troca segura de senha.
+- Carrinho persistido por conta, cálculo do pedido, validação de estoque e pagamento demonstrativo por débito, crédito ou Pix.
+- Notificações de pedidos no painel administrativo, com cliente, itens, forma de pagamento, estoque disponível e vendas do mês.
 
 ## 🛠️ Tecnologias utilizadas
 
@@ -62,6 +65,21 @@ O GameVerse é um projeto acadêmico de desenvolvimento web que simula uma loja 
    ```
 
 5. Acesse `http://localhost:3000` no navegador.
+
+### Configurar a conta administrativa
+
+Na primeira inicialização, configure as credenciais do administrador em variáveis de ambiente. A senha deve ter de 12 a 72 caracteres. O servidor grava somente o hash da senha em `dados/usuarios.json`; as variáveis podem ser removidas após a conta ser criada.
+
+No PowerShell:
+
+```powershell
+$env:ADMIN_USERNAME = "admin"
+$env:ADMIN_PASSWORD = "uma-senha-forte-com-12-caracteres"
+$env:SESSION_SECRET = "uma-chave-aleatoria-para-as-sessoes"
+npm start
+```
+
+O painel administrativo fica disponível em `admin.html` após entrar com essa conta. Os métodos de pagamento são registrados apenas para demonstração; esta aplicação não processa cobranças reais.
 
 ## 🎯 Objetivo acadêmico
 

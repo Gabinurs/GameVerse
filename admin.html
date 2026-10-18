@@ -28,6 +28,14 @@
                     <div class="admin-botoes">
 
                         <a
+                            href="#pedidos"
+                            class="botao-admin-link"
+                        >
+                            Pedidos e notificações
+                            <span id="badgePedidos" class="badge-pedidos" hidden>0</span>
+                        </a>
+
+                        <a
                             href="html/relatorios.html"
                             class="botao-admin-link"
                         >
@@ -59,6 +67,19 @@
 
             </header>
 
+            <section class="secao-administrativa" aria-labelledby="tituloResumoVendas">
+                <div class="cabecalho-lista">
+                    <div>
+                        <p class="sobre-titulo">ACOMPANHAMENTO</p>
+                        <h2 id="tituloResumoVendas">Vendas e estoque</h2>
+                    </div>
+                    <button type="button" class="botao-secundario"
+                        id="btnAtualizarPedidos">Atualizar dados</button>
+                </div>
+                <div id="resumoVendas" class="resumo-vendas">
+                    <p>Carregando resumo...</p>
+                </div>
+            </section>
 
             <!-- FORMULÁRIO DE CADASTRO E EDIÇÃO -->
             <section class="secao-formulario">
@@ -245,6 +266,19 @@
 
                 </div>
 
+            </section>
+
+            <section class="secao-administrativa" id="pedidos">
+                <div class="cabecalho-lista">
+                    <div>
+                        <p class="sobre-titulo">NOTIFICAÇÕES</p>
+                        <h2>Pedidos dos clientes</h2>
+                        <p>Veja quem comprou, os jogos do pedido e a forma de pagamento.</p>
+                    </div>
+                </div>
+                <div id="listaPedidos" class="lista-pedidos" aria-live="polite">
+                    <p>Carregando pedidos...</p>
+                </div>
             </section>
 
         </section>

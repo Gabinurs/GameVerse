@@ -508,6 +508,317 @@ a {
     background: #c52e62;
 }
 
+/* Minha conta e carrinho */
+
+.pagina-conta,
+.pagina-carrinho {
+    width: min(1000px, 92%);
+    min-height: 70vh;
+    margin: 40px auto;
+    color: var(--branco);
+}
+
+.cabecalho-pagina-conta {
+    margin-bottom: 26px;
+}
+
+.cabecalho-pagina-conta > a {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #8fc5ff;
+}
+
+.cabecalho-pagina-conta h1 {
+    margin: 8px 0;
+}
+
+.cabecalho-pagina-conta > p:last-child {
+    color: var(--texto);
+}
+
+.painel-conta,
+.resumo-carrinho,
+.estado-carrinho {
+    padding: 24px;
+    margin-bottom: 20px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--painel);
+}
+
+.painel-conta h2,
+.resumo-carrinho h2 {
+    margin-bottom: 16px;
+}
+
+.painel-conta > p {
+    margin: 8px 0;
+    color: var(--texto);
+}
+
+.form-conta {
+    display: grid;
+    gap: 10px;
+    max-width: 520px;
+}
+
+.form-conta input,
+.resumo-carrinho select,
+.controles-carrinho input {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 7px;
+    background: #0b1228;
+    color: var(--branco);
+}
+
+.form-conta button,
+.resumo-carrinho button {
+    min-height: 44px;
+    margin-top: 10px;
+}
+
+.mensagem-pagina {
+    margin-top: 12px;
+    color: var(--agua);
+}
+
+.mensagem-erro {
+    color: #ff9bab;
+}
+
+.layout-carrinho {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 320px;
+    align-items: start;
+    gap: 22px;
+}
+
+.lista-carrinho {
+    display: grid;
+    gap: 14px;
+}
+
+.item-carrinho {
+    display: grid;
+    grid-template-columns: 120px minmax(0, 1fr) 150px;
+    align-items: center;
+    gap: 18px;
+    padding: 16px;
+    border: 1px solid var(--borda);
+    border-radius: 12px;
+    background: var(--painel);
+}
+
+.item-carrinho img {
+    width: 120px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.descricao-carrinho p {
+    margin: 4px 0;
+    color: var(--texto);
+}
+
+.descricao-carrinho strong {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--agua);
+}
+
+.controles-carrinho {
+    display: grid;
+    gap: 6px;
+}
+
+.controles-carrinho label,
+.resumo-carrinho label {
+    color: var(--texto);
+    font-size: 0.9rem;
+}
+
+.botao-remover-carrinho,
+.botao-secundario {
+    padding: 9px 12px;
+    border: 1px solid var(--borda);
+    border-radius: 7px;
+    background: #293653;
+    color: var(--branco);
+}
+
+.botao-remover-carrinho:hover,
+.botao-secundario:hover {
+    border-color: var(--azul);
+}
+
+.resumo-carrinho {
+    position: sticky;
+    top: 16px;
+}
+
+.resumo-carrinho > p {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 12px 0;
+    color: var(--texto);
+}
+
+.resumo-carrinho > p strong {
+    color: var(--branco);
+}
+
+.resumo-carrinho form {
+    display: grid;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.aviso-pagamento {
+    color: var(--texto);
+    font-size: 0.8rem;
+}
+
+.resumo-carrinho button:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+/* Painel de pedidos do administrador */
+
+.admin-botoes {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.botao-admin-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border: 1px solid var(--borda);
+    border-radius: 7px;
+    background: var(--painel-claro);
+}
+
+.badge-pedidos,
+.etiqueta-pedido-novo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 22px;
+    min-height: 22px;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: #e85068;
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: bold;
+}
+
+.resumo-vendas {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.card-resumo-vendas,
+.card-pedido {
+    padding: 18px;
+    border: 1px solid #344875;
+    border-radius: 12px;
+    background: #111a35;
+}
+
+.card-resumo-vendas h3 {
+    color: var(--texto);
+    font-size: 0.95rem;
+}
+
+.card-resumo-vendas p {
+    margin-top: 10px;
+    color: var(--agua);
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+.lista-pedidos {
+    display: grid;
+    gap: 14px;
+}
+
+.card-pedido h3 {
+    margin-bottom: 6px;
+}
+
+.card-pedido p {
+    color: var(--texto);
+}
+
+.topo-pedido {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.pagamento-pedido {
+    margin: 14px 0 8px;
+    color: var(--agua) !important;
+    font-weight: bold;
+}
+
+.itens-pedido {
+    margin: 0 0 14px 20px;
+    color: var(--texto);
+}
+
+.card-pedido button {
+    width: auto;
+}
+
+@media (max-width: 800px) {
+    .layout-carrinho {
+        grid-template-columns: 1fr;
+    }
+
+    .resumo-carrinho {
+        position: static;
+    }
+
+    .resumo-vendas {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 550px) {
+    .item-carrinho {
+        grid-template-columns: 84px minmax(0, 1fr);
+        gap: 12px;
+    }
+
+    .item-carrinho img {
+        width: 84px;
+        height: 84px;
+    }
+
+    .controles-carrinho {
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr 100px auto;
+        align-items: center;
+    }
+
+    .resumo-vendas {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 900px) {
     .painel-admin form,
     #listaAdministrativa {
