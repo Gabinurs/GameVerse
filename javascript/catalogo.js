@@ -106,12 +106,33 @@ function exibirJogos(lista = jogosDemonstracao) {
             verDetalhes(jogo.id);
         });
 
+        const botaoCarrinho = document.createElement("button");
+        botaoCarrinho.type = "button";
+        botaoCarrinho.className = "botao-adicionar-card";
+        botaoCarrinho.textContent = "🛒";
+        botaoCarrinho.setAttribute(
+            "aria-label",
+            `Adicionar ${jogo.nome} ao carrinho`
+        );
+        botaoCarrinho.disabled = jogo.estoque <= 0;
+        botaoCarrinho.addEventListener("click", () => {
+            if (typeof adicionarJogoAoCarrinhoDaLoja === "function") {
+                adicionarJogoAoCarrinhoDaLoja(jogo.id);
+            } else {
+                verDetalhes(jogo.id);
+            }
+        });
+
+        const acoes = document.createElement("div");
+        acoes.className = "acoes-card-jogo";
+        acoes.append(botao, botaoCarrinho);
+
         informacoes.append(
             plataformaGenero,
             titulo,
             preco,
             estoque,
-            botao
+            acoes
         );
 
         artigo.append(img, informacoes);

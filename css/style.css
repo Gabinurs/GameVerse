@@ -1401,3 +1401,757 @@ a {
     opacity: 0.65;
     cursor: not-allowed;
 }
+
+/* Página inicial inspirada no novo visual da GameVerse */
+
+.pagina-inicial {
+    background:
+        radial-gradient(ellipse at 80% 18%, #21143d 0, transparent 38%),
+        #080d19;
+}
+
+.pagina-inicial .topo {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    min-height: 76px;
+    gap: clamp(14px, 2vw, 30px);
+    padding: 10px clamp(18px, 3.5vw, 54px);
+    background: rgba(10, 16, 31, 0.97);
+    border-bottom: 1px solid #202a40;
+    backdrop-filter: blur(14px);
+}
+
+.pagina-inicial .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+.pagina-inicial .logo > span:first-child {
+    color: #f20a87;
+    font-size: 2.1rem;
+    line-height: 1;
+}
+
+.pagina-inicial .logo .logo-texto {
+    color: #f5f7ff;
+    font-size: clamp(1.15rem, 1.7vw, 1.55rem);
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.pagina-inicial .logo .logo-texto span {
+    color: #f20a87;
+    font-size: inherit;
+}
+
+.pagina-inicial .navegacao {
+    gap: clamp(4px, 0.8vw, 14px);
+    flex: 0 0 auto;
+}
+
+.pagina-inicial .navegacao a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 42px;
+    padding: 0 clamp(10px, 1vw, 17px);
+    border-radius: 8px;
+    color: #e7eaf3;
+    font-size: 0.92rem;
+    white-space: nowrap;
+    transition: background 0.2s, color 0.2s;
+}
+
+.pagina-inicial .navegacao a:hover,
+.pagina-inicial .navegacao a.ativo {
+    background: #ed0b83;
+    color: #fff;
+}
+
+.busca-topo {
+    display: flex;
+    align-items: center;
+    flex: 1 1 180px;
+    min-width: 130px;
+    max-width: 280px;
+    height: 42px;
+    gap: 9px;
+    padding: 0 13px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    background: #1c2435;
+    color: #d3d9e6;
+}
+
+.busca-topo:focus-within {
+    border-color: #ed0b83;
+}
+
+.busca-topo > span {
+    font-size: 1.3rem;
+}
+
+.busca-topo input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #fff;
+    font-size: 0.86rem;
+}
+
+.busca-topo input::placeholder {
+    color: #aab3c4;
+}
+
+.link-carrinho {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    min-height: 44px;
+    padding: 0 6px;
+    color: #fff;
+    font-size: 0.88rem;
+    white-space: nowrap;
+}
+
+.link-carrinho svg {
+    width: 25px;
+    height: 25px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+}
+
+.contador-carrinho {
+    position: absolute;
+    top: -2px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 12px;
+    background: #ed0b83;
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.pagina-inicial .acoes-conta {
+    flex: 0 0 auto;
+    gap: 9px;
+}
+
+.pagina-inicial .acoes-conta .botao-conta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 102px;
+    min-height: 42px;
+    padding: 0 16px;
+    border: 1px solid #ed0b83;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 0.87rem;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.pagina-inicial .acoes-conta .botao-conta:hover {
+    transform: translateY(-1px);
+    background: #bd0768;
+}
+
+.pagina-inicial .acoes-conta .botao-login,
+.pagina-inicial .acoes-conta .botao-criar-conta {
+    background: #ed0b83;
+}
+
+.pagina-inicial .acoes-conta .botao-login::before {
+    content: "♙";
+    margin-right: 7px;
+    font-size: 1.05rem;
+}
+
+.pagina-inicial .acoes-conta .menu-conta {
+    display: inline-block;
+}
+
+.pagina-inicial .acoes-conta .botao-menu-conta {
+    min-width: 180px;
+    min-height: 48px;
+    border-color: #ed0b83;
+    border-radius: 8px;
+    background: #10182a;
+    font-size: 0.9rem;
+}
+
+.pagina-inicial .acoes-conta .avatar-conta {
+    background: #ed0b83;
+}
+
+.pagina-inicial .loja {
+    width: min(1420px, 94%);
+}
+
+.pagina-inicial .hero-carrossel {
+    min-height: clamp(300px, 35vw, 390px);
+    align-items: center;
+    margin: 22px 0 26px;
+    padding: clamp(28px, 5vw, 64px);
+    border: 0;
+    border-radius: 10px;
+    background: #0b1020;
+    isolation: isolate;
+}
+
+.hero-imagem,
+.hero-sombra {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-imagem {
+    z-index: -2;
+    object-fit: cover;
+    object-position: center 35%;
+    animation: entrada-imagem-hero 0.65s ease;
+}
+
+.hero-sombra {
+    z-index: -1;
+    background:
+        linear-gradient(90deg, rgba(5, 9, 17, 0.97) 0%, rgba(5, 9, 17, 0.8) 36%, rgba(5, 9, 17, 0.12) 100%),
+        linear-gradient(0deg, rgba(5, 9, 17, 0.48), transparent 55%);
+}
+
+.pagina-inicial .hero-conteudo {
+    max-width: 600px;
+}
+
+.pagina-inicial .hero .sobretitulo {
+    color: #ff3caa;
+    font-size: 0.75rem;
+}
+
+.pagina-inicial .hero h1 {
+    margin: 9px 0;
+    font-size: clamp(2rem, 4vw, 3.25rem);
+    line-height: 1.08;
+}
+
+.pagina-inicial .hero h1 span {
+    color: #f20a87;
+}
+
+.pagina-inicial .hero p:not(.sobretitulo) {
+    margin-bottom: 18px;
+    color: #d8dce7;
+}
+
+.pagina-inicial .hero .botao-principal {
+    padding: 11px 18px;
+    border: 0;
+    border-radius: 8px;
+    background: #ed0b83;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.pagina-inicial .hero .botao-principal:hover {
+    background: #c6086d;
+}
+
+.seta-hero {
+    position: absolute;
+    top: 50%;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    transform: translateY(-50%);
+    border: 1px solid #8b95a9;
+    border-radius: 50%;
+    background: rgba(8, 13, 25, 0.7);
+    color: #fff;
+    font-size: 1.8rem;
+    line-height: 1;
+}
+
+.seta-hero:hover {
+    border-color: #ed0b83;
+    background: #ed0b83;
+}
+
+.seta-hero-anterior {
+    left: 16px;
+}
+
+.seta-hero-proximo {
+    right: 16px;
+}
+
+.pontos-hero {
+    position: absolute;
+    right: 0;
+    bottom: 16px;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ponto-hero {
+    width: 9px;
+    height: 9px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #a3a8b4;
+}
+
+.ponto-hero.ativo {
+    background: #ed0b83;
+    transform: scale(1.2);
+}
+
+.secao-categorias,
+.secao-destaques {
+    margin: 28px 0;
+}
+
+.cabecalho-secao {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 14px;
+}
+
+.cabecalho-secao h2 {
+    font-size: clamp(1.15rem, 2vw, 1.45rem);
+}
+
+.cabecalho-secao h2 > span {
+    color: #ed0b83;
+}
+
+.cabecalho-secao > a {
+    color: #ff3caa;
+    font-size: 0.86rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.lista-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(105px, 1fr));
+    gap: 12px;
+}
+
+.cartao-categoria {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 78px;
+    gap: 4px;
+    border: 1px solid #202b42;
+    border-radius: 8px;
+    background: linear-gradient(145deg, #111a2c, #0c1220);
+    color: #e8ebf4;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+}
+
+.cartao-categoria > span:first-child {
+    color: #f20a87;
+    font-size: 1.35rem;
+    font-weight: 700;
+}
+
+.cartao-categoria > span:last-child {
+    font-size: 0.78rem;
+}
+
+.cartao-categoria:hover,
+.cartao-categoria.ativo {
+    transform: translateY(-2px);
+    border-color: #ed0b83;
+    background: #261128;
+}
+
+.controles-destaques {
+    display: flex;
+    gap: 8px;
+}
+
+.controles-destaques button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #34405a;
+    border-radius: 50%;
+    background: #121a2b;
+    color: #fff;
+    font-size: 1.4rem;
+}
+
+.controles-destaques button:hover {
+    border-color: #ed0b83;
+    background: #ed0b83;
+}
+
+.lista-destaques {
+    display: grid;
+    grid-auto-columns: clamp(175px, 16vw, 220px);
+    grid-auto-flow: column;
+    gap: 14px;
+    overflow-x: auto;
+    padding: 2px 2px 12px;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-color: #ed0b83 #141b2a;
+    scrollbar-width: thin;
+}
+
+.cartao-destaque {
+    min-width: 0;
+    overflow: hidden;
+    scroll-snap-align: start;
+    border: 1px solid #253047;
+    border-radius: 9px;
+    background: #101725;
+    transition: border-color 0.2s, transform 0.2s;
+}
+
+.cartao-destaque:hover {
+    transform: translateY(-3px);
+    border-color: #ed0b83;
+}
+
+.imagem-destaque {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    aspect-ratio: 1.22 / 1;
+    background: #141c2b;
+}
+
+.imagem-destaque img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.cartao-destaque:hover .imagem-destaque img {
+    transform: scale(1.04);
+}
+
+.imagem-destaque > span {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    padding: 3px 8px;
+    border-radius: 12px;
+    background: #181d2de8;
+    color: #fff;
+    font-size: 0.68rem;
+}
+
+.info-destaque {
+    padding: 10px;
+}
+
+.info-destaque h3 {
+    overflow: hidden;
+    font-size: 0.9rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.info-destaque > p {
+    margin: 2px 0 8px;
+    color: #9ea8ba;
+    font-size: 0.75rem;
+}
+
+.rodape-destaque {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.rodape-destaque strong {
+    color: #ff3caa;
+    font-size: 0.9rem;
+}
+
+.botao-adicionar-destaque,
+.botao-adicionar-card {
+    display: inline-grid;
+    flex: 0 0 auto;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border: 1px solid #ed0b83;
+    border-radius: 8px;
+    background: transparent;
+    color: #ff3caa;
+    font-size: 1rem;
+}
+
+.botao-adicionar-destaque:hover,
+.botao-adicionar-card:hover:not(:disabled) {
+    background: #ed0b83;
+    color: #fff;
+}
+
+.botao-adicionar-destaque:disabled,
+.botao-adicionar-card:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+}
+
+.pagina-inicial .barra-busca {
+    border-radius: 9px;
+}
+
+.pagina-inicial .card-jogo {
+    border-color: #222d43;
+    background: #101725;
+}
+
+.pagina-inicial .card-jogo:hover {
+    border-color: #ed0b83;
+    box-shadow: 0 8px 25px #ed0b8322;
+}
+
+.pagina-inicial .info-jogo button {
+    min-height: 38px;
+    border-radius: 7px;
+    background: #ed0b83;
+    border-color: #ed0b83;
+    font-size: 0.84rem;
+}
+
+.pagina-inicial .info-jogo .acoes-card-jogo {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.pagina-inicial .info-jogo .acoes-card-jogo > button:first-child {
+    flex: 1;
+}
+
+.pagina-inicial .info-jogo .acoes-card-jogo .botao-adicionar-card {
+    width: 42px;
+    min-height: 38px;
+    margin: 0;
+    border: 1px solid #ed0b83;
+    background: transparent;
+    color: #ff3caa;
+}
+
+.pagina-inicial .chamada {
+    border-color: #2a3047;
+    background: linear-gradient(120deg, #101725, #20112c);
+}
+
+.pagina-inicial .rodape {
+    align-items: center;
+    color: #ff3caa;
+}
+
+.pagina-inicial .rodape a {
+    color: #dbe0eb;
+}
+
+@keyframes entrada-imagem-hero {
+    from { opacity: 0.55; }
+    to { opacity: 1; }
+}
+
+@media (max-width: 1200px) {
+    .pagina-inicial .topo {
+        gap: 12px;
+    }
+
+    .pagina-inicial .navegacao {
+        gap: 0;
+    }
+
+    .pagina-inicial .navegacao a {
+        padding: 0 9px;
+        font-size: 0.84rem;
+    }
+
+    .pagina-inicial .acoes-conta .botao-conta {
+        min-width: 84px;
+        padding: 0 11px;
+    }
+}
+
+@media (max-width: 900px) {
+    .pagina-inicial .topo {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        padding: 10px 4%;
+    }
+
+    .pagina-inicial .logo {
+        order: 1;
+    }
+
+    .pagina-inicial .acoes-conta {
+        order: 2;
+        margin-left: auto;
+    }
+
+    .pagina-inicial .navegacao {
+        order: 3;
+        width: auto;
+        justify-content: flex-start;
+    }
+
+    .pagina-inicial .busca-topo {
+        order: 4;
+        flex: 1 1 170px;
+        max-width: none;
+    }
+
+    .pagina-inicial .link-carrinho {
+        order: 5;
+    }
+}
+
+@media (max-width: 600px) {
+    .pagina-inicial .topo {
+        gap: 8px;
+    }
+
+    .pagina-inicial .logo .logo-texto {
+        font-size: 1.05rem;
+    }
+
+    .pagina-inicial .logo > span:first-child {
+        font-size: 1.7rem;
+    }
+
+    .pagina-inicial .acoes-conta .botao-conta {
+        min-width: auto;
+        min-height: 38px;
+        padding: 0 10px;
+        font-size: 0.77rem;
+    }
+
+    .pagina-inicial .acoes-conta .botao-menu-conta {
+        min-width: 0;
+        min-height: 42px;
+    }
+
+    .pagina-inicial .acoes-conta .nome-conta {
+        max-width: 82px;
+    }
+
+    .pagina-inicial .navegacao {
+        order: 4;
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .pagina-inicial .navegacao a {
+        min-height: 36px;
+        padding: 0 8px;
+        font-size: 0.78rem;
+    }
+
+    .pagina-inicial .busca-topo {
+        order: 3;
+        flex-basis: calc(100% - 100px);
+        max-width: none;
+    }
+
+    .pagina-inicial .link-carrinho {
+        order: 3;
+        font-size: 0;
+    }
+
+    .pagina-inicial .link-carrinho svg {
+        width: 27px;
+        height: 27px;
+    }
+
+    .pagina-inicial .hero-carrossel {
+        min-height: 310px;
+        padding: 28px 36px;
+    }
+
+    .pagina-inicial .hero-sombra {
+        background:
+            linear-gradient(90deg, rgba(5, 9, 17, 0.91), rgba(5, 9, 17, 0.55)),
+            linear-gradient(0deg, rgba(5, 9, 17, 0.65), transparent);
+    }
+
+    .pagina-inicial .hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.4rem);
+    }
+
+    .seta-hero {
+        width: 34px;
+        height: 34px;
+        font-size: 1.45rem;
+        top: auto;
+        bottom: 9px;
+        transform: none;
+    }
+
+    .seta-hero-anterior {
+        left: 7px;
+    }
+
+    .seta-hero-proximo {
+        right: 7px;
+    }
+
+    .pagina-inicial .info-jogo .acoes-card-jogo > button:first-child {
+        width: auto;
+    }
+
+    .lista-categorias {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .lista-destaques {
+        grid-auto-columns: 64vw;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pagina-inicial *,
+    .pagina-inicial *::before,
+    .pagina-inicial *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

@@ -7,44 +7,81 @@
     <title>GameVerse | Sua loja de games</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="pagina-inicial">
 
     <header class="topo">
-        <a href="#" class="logo" id="btnInicio">
-            <span>✦</span> GAMEVERSE
+        <a href="#inicio" class="logo" id="btnInicio" aria-label="GameVerse - início">
+            <span aria-hidden="true">✦</span>
+            <span class="logo-texto">GAME<span>VERSE</span></span>
         </a>
 
-        <nav class="navegacao">
-            <a href="#catalogo">Jogos</a>
-            <a href="#destaques">Destaques</a>
-            <a href="#ofertas">Ofertas</a>
+        <nav class="navegacao" aria-label="Navegação principal">
+            <a class="link-inicio ativo" href="#inicio">Início</a>
+            <a href="#catalogo">Catálogo</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
         </nav>
 
-       
-<div class="acoes-conta" id="acoesConta">
-    <button type="button" id="btnEntrar">Entrar</button>
+        <label class="busca-topo" for="buscaTopo">
+            <span aria-hidden="true">⌕</span>
+            <input type="search" id="buscaTopo" placeholder="Buscar jogos..."
+                aria-label="Buscar jogos no catálogo">
+        </label>
 
-    <button type="button" id="btnCriarConta"
-        class="botao-principal">Criar conta</button>
-</div>
+        <a href="meus-jogos.html" class="link-carrinho" id="linkCarrinho"
+            aria-label="Abrir carrinho de compras">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 3h2l2.2 11.2a2 2 0 0 0 2 1.6h8.7a2 2 0 0 0 2-1.6L21 8H6"></path>
+                <circle cx="10" cy="20" r="1.3"></circle>
+                <circle cx="18" cy="20" r="1.3"></circle>
+            </svg>
+            <span>Carrinho</span>
+            <span class="contador-carrinho" id="contadorCarrinho" aria-live="polite">0</span>
+        </a>
 
+        <div class="acoes-conta" id="acoesConta">
+            <a href="cadastro.html" class="botao-conta botao-criar-conta">Criar conta</a>
+            <a href="login.html" class="botao-conta botao-login">Entrar</a>
+        </div>
     </header>
 
     <main class="loja">
 
-        <section class="hero" id="inicio">
+        <section class="hero hero-carrossel" id="inicio" aria-roledescription="carrossel"
+            aria-label="Jogos em destaque">
+            <img class="hero-imagem" id="imagemHero" src="" alt="" aria-hidden="true">
+            <div class="hero-sombra"></div>
             <div class="hero-conteudo">
-                <p class="sobretitulo">SEU UNIVERSO GAMER</p>
-                <h1>Sua próxima aventura começa aqui.</h1>
-                <p>
-                    Descubra novos mundos, encontre seus jogos favoritos
-                    e prepare-se para jogar.
-                </p>
-                <a href="#catalogo" class="botao-principal">
-                    Explorar jogos →
-                </a>
+                <p class="sobretitulo" id="legendaHero">VIVA NOVAS AVENTURAS</p>
+                <h1>OS MELHORES JOGOS<br><span>ESTÃO AQUI</span></h1>
+                <p>Explore, jogue e descubra mundos incríveis com a GameVerse.</p>
+                <a href="#catalogo" class="botao-principal">Ver catálogo <span aria-hidden="true">→</span></a>
             </div>
-            <div class="hero-simbolo" aria-hidden="true">✦</div>
+            <button type="button" class="seta-hero seta-hero-anterior"
+                id="heroAnterior" aria-label="Jogo em destaque anterior">‹</button>
+            <button type="button" class="seta-hero seta-hero-proximo"
+                id="heroProximo" aria-label="Próximo jogo em destaque">›</button>
+            <div class="pontos-hero" id="pontosHero" aria-label="Selecionar destaque"></div>
+        </section>
+
+        <section id="categorias" class="secao-categorias" aria-labelledby="tituloCategorias">
+            <div class="cabecalho-secao">
+                <h2 id="tituloCategorias"><span aria-hidden="true">🎮</span> Categorias</h2>
+                <a href="#catalogo">Ver todas <span aria-hidden="true">→</span></a>
+            </div>
+            <div id="listaCategorias" class="lista-categorias"></div>
+        </section>
+
+        <section id="destaques" class="secao-destaques" aria-labelledby="tituloDestaques">
+            <div class="cabecalho-secao">
+                <h2 id="tituloDestaques"><span aria-hidden="true">🔥</span> Destaques da semana</h2>
+                <div class="controles-destaques">
+                    <button type="button" id="destaquesAnterior" aria-label="Rolar destaques para a esquerda">‹</button>
+                    <button type="button" id="destaquesProximo" aria-label="Rolar destaques para a direita">›</button>
+                </div>
+            </div>
+            <div id="listaDestaques" class="lista-destaques" tabindex="0"
+                aria-label="Carrossel de jogos em destaque"></div>
         </section>
 
         <section id="catalogo" class="secao-loja">
@@ -85,15 +122,16 @@
             </div>
         </section>
 
-        <section id="destaques" class="chamada">
+        <section id="sobre" class="chamada">
             <p class="sobretitulo">GAMEVERSE</p>
             <h2>Encontre seu próximo mundo favorito.</h2>
-            <p>Explore diferentes gêneros e plataformas em um só lugar.</p>
+            <p>Explore diferentes gêneros e plataformas em um só lugar. Encontre sua próxima aventura.</p>
         </section>
 
-        <footer class="rodape">
+        <footer class="rodape" id="contato">
             <span>✦ GAMEVERSE</span>
             <p>Projeto acadêmico de desenvolvimento web · 2026</p>
+            <a href="mailto:contato@gameverse.local">Fale com a GameVerse</a>
         </footer>
 
     </main>

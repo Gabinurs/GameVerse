@@ -148,7 +148,11 @@
     "gameverseVoltarAposLogin"
 );
 
-if (voltarPara && voltarPara.startsWith("/detalhes.html?id=")) {
+if (
+    voltarPara === "/meus-jogos.html" ||
+    voltarPara === "/minha-conta.html" ||
+    /^\/detalhes\.html\?id=\d+$/.test(voltarPara || "")
+) {
     sessionStorage.removeItem("gameverseVoltarAposLogin");
     window.location.href = voltarPara;
 } else {

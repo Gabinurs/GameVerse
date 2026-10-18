@@ -32,6 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
         const dados = await resposta.json();
 
         if (resposta.status === 401) {
+            sessionStorage.setItem(
+                "gameverseVoltarAposLogin",
+                "/meus-jogos.html"
+            );
             window.location.href = "login.html";
             return null;
         }
